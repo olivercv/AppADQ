@@ -57,6 +57,8 @@ var _technicalEvaluation = _interopRequireDefault(require("./routes/technicalEva
 
 var _legalContract = _interopRequireDefault(require("./routes/legalContract"));
 
+require("regenerator-runtime/runtime");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -65,6 +67,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 //import fileUpload from 'express-fileupload';
 //importing routes 
+// import "core-js/stable";
 //initialization
 var app = (0, _express["default"])(); //middlewares 
 
