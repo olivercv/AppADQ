@@ -1,5 +1,5 @@
 import Position from "../models/Position";
-import Office from "../models/office"
+import Office from "../models/Office"
 export async function getPositions(req, res) {
   try {
     const positions = await Position.findAll({

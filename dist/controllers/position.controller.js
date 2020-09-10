@@ -11,7 +11,7 @@ exports.deletePosition = deletePosition;
 
 var _Position = _interopRequireDefault(require("../models/Position"));
 
-var _office = _interopRequireDefault(require("../models/office"));
+var _Office = _interopRequireDefault(require("../models/Office"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -34,7 +34,7 @@ function _getPositions() {
             _context.next = 3;
             return _Position["default"].findAll({
               include: [{
-                model: _office["default"],
+                model: _Office["default"],
                 as: 'office'
               }]
             });
@@ -81,7 +81,7 @@ function _getPosition() {
                 id: id
               },
               include: [{
-                model: _office["default"],
+                model: _Office["default"],
                 as: 'office',
                 required: false
               }]
