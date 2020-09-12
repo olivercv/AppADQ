@@ -18,12 +18,10 @@ var sequelize = new _sequelize["default"]('EA_ADQ', 'userDB', 'temporal', {
     require: 30000,
     idle: 10000
   },
-  logging: false,
-  dialectOptions: {
-    useUTC: true // -->Add this line. for reading from database 
-
-  },
-  timezone: '-04:00' // -->Add this line. for writing to database 
+  logging: false // dialectOptions: { 
+  //     useUTC: true, // -->Add this line. for reading from database 
+  // }, 
+  // timezone: '-04:00', // -->Add this line. for writing to database 
 
 });
 exports.sequelize = sequelize;
