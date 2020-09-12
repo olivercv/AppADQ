@@ -15,7 +15,7 @@ export const sequelize = new Sequelize(
         },
         logging: false,
         dialectOptions: { 
-            useUTC: true, // -->Add this line. for reading from database 
+            // useUTC: true, // -->Add this line. for reading from database 
         }, 
         timezone: '-04:00', // -->Add this line. for writing to database 
     }
