@@ -1233,6 +1233,7 @@ class AcquisitionRequestFormComponent {
     ngOnInit() {
         // this.activatedRoute.params
         // .subscribe( ({ id }) => this.getAcquisitionRequest( id ) );
+        this.currentUser = JSON.parse(this.authService.getUser());
         this.acquisitionRequestForm = this.formBuilder.group({
             code: ["GAF-08-01"],
             version: ["03"],
@@ -1299,7 +1300,7 @@ class AcquisitionRequestFormComponent {
         }
     }
     save() {
-        this.currentUser = JSON.parse(this.authService.getUser());
+        // this.currentUser =  JSON.parse(this.authService.getUser()) ;
         const { code } = this.acquisitionRequestForm.value;
         if (this.acquisitionRequest) {
             // update
@@ -1391,6 +1392,16 @@ class AcquisitionRequestFormComponent {
         });
         admConditionDialogRef.afterClosed().subscribe(result => {
             this.getAcquisitionRequest(this.acquisitionRequest.id);
+            if (this.currentStatus.procedureId) {
+                const std = _models_status_model__WEBPACK_IMPORTED_MODULE_4__["Status"].fromState(this.currentStatus);
+                std.userId = this.currentUser.id;
+                std.status = 'terminado';
+                // console.log('current status ', std);
+                this.store.dispatch(_store_actions_status_actions__WEBPACK_IMPORTED_MODULE_5__["updateStatus"]({ status: std }));
+            }
+            else {
+                this.router.navigateByUrl('/acquisitionRequests');
+            }
         });
     }
     openUpdateAdmConditionDialog(id) {

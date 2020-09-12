@@ -2340,6 +2340,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           // this.activatedRoute.params
           // .subscribe( ({ id }) => this.getAcquisitionRequest( id ) );
+          this.currentUser = JSON.parse(this.authService.getUser());
           this.acquisitionRequestForm = this.formBuilder.group({
             code: ["GAF-08-01"],
             version: ["03"],
@@ -2446,7 +2447,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         value: function save() {
           var _this7 = this;
 
-          this.currentUser = JSON.parse(this.authService.getUser());
+          // this.currentUser =  JSON.parse(this.authService.getUser()) ;
           var code = this.acquisitionRequestForm.value.code;
 
           if (this.acquisitionRequest) {
@@ -2582,6 +2583,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
           admConditionDialogRef.afterClosed().subscribe(function (result) {
             _this14.getAcquisitionRequest(_this14.acquisitionRequest.id);
+
+            if (_this14.currentStatus.procedureId) {
+              var std = _models_status_model__WEBPACK_IMPORTED_MODULE_4__["Status"].fromState(_this14.currentStatus);
+
+              std.userId = _this14.currentUser.id;
+              std.status = 'terminado'; // console.log('current status ', std);
+
+              _this14.store.dispatch(_store_actions_status_actions__WEBPACK_IMPORTED_MODULE_5__["updateStatus"]({
+                status: std
+              }));
+            } else {
+              _this14.router.navigateByUrl('/acquisitionRequests');
+            }
           });
         }
       }, {
