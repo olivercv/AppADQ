@@ -15,6 +15,12 @@ const Procedure = sequelize.define('procedure',{
     order: {
         type: Sequelize.INTEGER
     },
+    category: {
+        type: Sequelize.INTEGER
+    },
+    formName: {
+        type: Sequelize.TEXT
+    }
 
     
 },{

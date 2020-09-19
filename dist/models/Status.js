@@ -43,7 +43,7 @@ var Status = _database.sequelize.define('status', {
     type: _sequelize["default"].BOOLEAN
   },
   codeRequest: {
-    type: _sequelize["default"].TEXT
+    type: _sequelize["default"].UUID
   },
   name: {
     type: _sequelize["default"].TEXT
@@ -54,12 +54,13 @@ var Status = _database.sequelize.define('status', {
 });
 
 _AcquisitionRequest["default"].hasMany(Status, {
-  foreignKey: 'formId',
+  as: 'status',
+  foreignKey: 'codeRequest',
   sourceKey: 'id'
 });
 
 Status.belongsTo(_AcquisitionRequest["default"], {
-  foreignKey: 'formId',
+  foreignKey: 'codeRequest',
   sourceKey: 'id'
 });
 

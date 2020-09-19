@@ -30,7 +30,7 @@ const Status = sequelize.define('status',{
         type: Sequelize.BOOLEAN
     },
     codeRequest: {
-        type: Sequelize.TEXT
+        type: Sequelize.UUID
     },
     name: {
         type: Sequelize.TEXT
@@ -42,8 +42,8 @@ const Status = sequelize.define('status',{
 });
 
 
-AcquisitionRequest.hasMany(Status, {foreignKey:'formId', sourceKey: 'id'});
-Status.belongsTo(AcquisitionRequest, {foreignKey: 'formId', sourceKey: 'id'});
+AcquisitionRequest.hasMany(Status, {as:'status', foreignKey:'codeRequest', sourceKey: 'id'});
+Status.belongsTo(AcquisitionRequest, {foreignKey: 'codeRequest', sourceKey: 'id'});
 
 TechnicalReport.hasMany(Status, {foreignKey:'formId', sourceKey: 'id'});
 Status.belongsTo(TechnicalReport, {foreignKey: 'formId', sourceKey: 'id'});

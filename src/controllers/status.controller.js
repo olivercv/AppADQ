@@ -1,5 +1,6 @@
 import Status from "../models/Status";
-import Procedure from "../models/Procedure"
+import Procedure from "../models/Procedure";
+import AcquisitionRequest from "../models/AcquisitionRequest";
 const { Op } = require('sequelize');
 
 
@@ -10,6 +11,9 @@ export async function getStatuss(req, res) {
         {
           model: Procedure,
           as: 'procedure',
+        },{
+          model: AcquisitionRequest,
+          as: 'acquisitionRequest',
         }
       ]
 
@@ -35,6 +39,9 @@ export async function getStatusByRequest(req, res) {
         {
           model: Procedure,
           as: 'procedure',
+        },{
+          model: AcquisitionRequest,
+          as: 'acquisitionRequest',
         }
       ]
 
@@ -63,7 +70,12 @@ export async function getCurrentStatus(req, res) {
         as: 'procedure',
         required: false,
         attributes: ['id', 'positionId','procedureName','order']
-      }]
+      },
+      {
+        model: AcquisitionRequest,
+        as: 'acquisitionRequest',
+      }
+    ]
     });
     res.json({
       status: status,
@@ -100,7 +112,12 @@ export async function getStatusPositionId(req, res) {
             { id: procedureId }
           ]
         }
-      }]
+      },
+      {
+        model: AcquisitionRequest,
+        as: 'acquisitionRequest',
+      }
+    ]
       
     });
     res.json({
@@ -129,6 +146,16 @@ export async function getStatusByUserId(req, res) {
         },
         current: false
       },
+      include: [
+        {
+          model: Procedure,
+          as: 'procedure',
+        },
+        {
+          model: AcquisitionRequest,
+          as: 'acquisitionRequest',
+        }
+      ],
       logging: console.log,
       raw: true,
       order: [['dateAt', 'ASC']],
@@ -156,9 +183,12 @@ export async function getStatus(req, res) {
       include: [{
         model: Procedure,
         as: 'procedure',
-        required: false,
-        attributes: ['id', 'positionId','procedureName','order']
-      }]
+      },
+      {
+        model: AcquisitionRequest,
+        as: 'acquisitionRequest',
+      }
+    ]
       
     });
     res.json({

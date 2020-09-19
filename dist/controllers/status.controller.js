@@ -17,6 +17,8 @@ var _Status = _interopRequireDefault(require("../models/Status"));
 
 var _Procedure = _interopRequireDefault(require("../models/Procedure"));
 
+var _AcquisitionRequest = _interopRequireDefault(require("../models/AcquisitionRequest"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -45,6 +47,9 @@ function _getStatuss() {
               include: [{
                 model: _Procedure["default"],
                 as: 'procedure'
+              }, {
+                model: _AcquisitionRequest["default"],
+                as: 'acquisitionRequest'
               }]
             });
 
@@ -94,6 +99,9 @@ function _getStatusByRequest() {
               include: [{
                 model: _Procedure["default"],
                 as: 'procedure'
+              }, {
+                model: _AcquisitionRequest["default"],
+                as: 'acquisitionRequest'
               }]
             });
 
@@ -147,6 +155,9 @@ function _getCurrentStatus() {
                 as: 'procedure',
                 required: false,
                 attributes: ['id', 'positionId', 'procedureName', 'order']
+              }, {
+                model: _AcquisitionRequest["default"],
+                as: 'acquisitionRequest'
               }]
             });
 
@@ -207,6 +218,9 @@ function _getStatusPositionId() {
                 }, {
                   id: procedureId
                 }])
+              }, {
+                model: _AcquisitionRequest["default"],
+                as: 'acquisitionRequest'
               }]
             });
 
@@ -259,6 +273,13 @@ function _getStatusByUserId() {
                 dateAt: _defineProperty({}, Op.between, [startDate, endDate]),
                 current: false
               },
+              include: [{
+                model: _Procedure["default"],
+                as: 'procedure'
+              }, {
+                model: _AcquisitionRequest["default"],
+                as: 'acquisitionRequest'
+              }],
               logging: console.log,
               raw: true,
               order: [['dateAt', 'ASC']]
@@ -311,9 +332,10 @@ function _getStatus() {
               },
               include: [{
                 model: _Procedure["default"],
-                as: 'procedure',
-                required: false,
-                attributes: ['id', 'positionId', 'procedureName', 'order']
+                as: 'procedure'
+              }, {
+                model: _AcquisitionRequest["default"],
+                as: 'acquisitionRequest'
               }]
             });
 
