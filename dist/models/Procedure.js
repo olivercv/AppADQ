@@ -27,7 +27,7 @@ var Procedure = _database.sequelize.define('procedure', {
     type: _sequelize["default"].INTEGER
   },
   category: {
-    type: _sequelize["default"].INTEGER
+    type: _sequelize["default"].TEXT
   },
   formName: {
     type: _sequelize["default"].TEXT

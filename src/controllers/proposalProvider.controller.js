@@ -54,18 +54,18 @@ export async function getPPForm(req, res) {
 }
 
 export async function createProposalProvider(req, res) {
-  const { name, nit, date, formId} = req.body;
+  const { name, economicProposal, date, formId} = req.body;
   try {
     let newProposalProvider = await ProposalProvider.create(
       {
         name,
-        nit,
+        economicProposal,
         date,
         formId
     
       },
       {
-        fields: ["name", "nit","date","formId"],
+        fields: ["name", "economicProposal","date","formId"],
       }
     );
     if (newProposalProvider) {
@@ -85,11 +85,11 @@ export async function createProposalProvider(req, res) {
 
 export async function updateProposalProvider(req, res) {
   const { id } = req.params;
-  const { name, nit, date, formId} = req.body;
+  const { name, economicProposal, date, formId} = req.body;
 
   try {
     const proposalProviders = await ProposalProvider.findAll({
-      attributes: ["id", "name","nit","date", "formId"],
+      attributes: ["id", "name","economicProposal","date", "formId"],
       where: {
         id,
       },
@@ -98,7 +98,7 @@ export async function updateProposalProvider(req, res) {
       proposalProviders.forEach(async (proposalProvider) => {
         await proposalProvider.update({
           name,
-          nit,
+          economicProposal,
           date,
           formId
         });

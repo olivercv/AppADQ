@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getProcedures = getProcedures;
 exports.getProcedure = getProcedure;
 exports.getProcedureByOrder = getProcedureByOrder;
+exports.getProcedureByCategoryOrder = getProcedureByCategoryOrder;
 exports.getProcedureStatus = getProcedureStatus;
 exports.createProcedure = createProcedure;
 exports.updateProcedure = updateProcedure;
@@ -179,34 +180,26 @@ function _getProcedureByOrder() {
   return _getProcedureByOrder.apply(this, arguments);
 }
 
-function getProcedureStatus(_x7, _x8) {
-  return _getProcedureStatus.apply(this, arguments);
+function getProcedureByCategoryOrder(_x7, _x8) {
+  return _getProcedureByCategoryOrder.apply(this, arguments);
 }
 
-function _getProcedureStatus() {
-  _getProcedureStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var positionId, procedure;
+function _getProcedureByCategoryOrder() {
+  _getProcedureByCategoryOrder = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
+    var _req$params, category, order, procedure;
+
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            positionId = req.params.positionId;
+            _req$params = req.params, category = _req$params.category, order = _req$params.order;
             _context4.prev = 1;
             _context4.next = 4;
-            return _Procedure["default"].findAll({
+            return _Procedure["default"].findOne({
               where: {
-                positionId: positionId
-              },
-              include: [{
-                model: _Status["default"],
-                as: 'status',
-                required: false,
-                where: {
-                  current: true
-                },
-                // Pass in the Product attributes that you want to retrieve
-                attributes: ['id', 'procedureId', 'userId', 'status', 'dateAt', 'current', 'codeRequest', 'formId', 'name']
-              }]
+                category: category,
+                order: order
+              }
             });
 
           case 4:
@@ -233,51 +226,49 @@ function _getProcedureStatus() {
       }
     }, _callee4, null, [[1, 8]]);
   }));
+  return _getProcedureByCategoryOrder.apply(this, arguments);
+}
+
+function getProcedureStatus(_x9, _x10) {
   return _getProcedureStatus.apply(this, arguments);
 }
 
-function createProcedure(_x9, _x10) {
-  return _createProcedure.apply(this, arguments);
-}
-
-function _createProcedure() {
-  _createProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
-    var _req$body, positionId, procedureName, order, newProcedure;
-
+function _getProcedureStatus() {
+  _getProcedureStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
+    var positionId, procedure;
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            _req$body = req.body, positionId = _req$body.positionId, procedureName = _req$body.procedureName, order = _req$body.order;
+            positionId = req.params.positionId;
             _context5.prev = 1;
             _context5.next = 4;
-            return _Procedure["default"].create({
-              positionId: positionId,
-              procedureName: procedureName,
-              order: order
-            }, {
-              fields: ["positionId", "procedureName", "order"]
+            return _Procedure["default"].findAll({
+              where: {
+                positionId: positionId
+              },
+              include: [{
+                model: _Status["default"],
+                as: 'status',
+                required: false,
+                where: {
+                  current: true
+                },
+                // Pass in the Product attributes that you want to retrieve
+                attributes: ['id', 'procedureId', 'userId', 'status', 'dateAt', 'current', 'codeRequest', 'formId', 'name']
+              }]
             });
 
           case 4:
-            newProcedure = _context5.sent;
-
-            if (!newProcedure) {
-              _context5.next = 7;
-              break;
-            }
-
-            return _context5.abrupt("return", res.json({
-              message: "Procedure Created",
-              procedure: newProcedure
-            }));
-
-          case 7:
-            _context5.next = 13;
+            procedure = _context5.sent;
+            res.json({
+              procedure: procedure
+            });
+            _context5.next = 12;
             break;
 
-          case 9:
-            _context5.prev = 9;
+          case 8:
+            _context5.prev = 8;
             _context5.t0 = _context5["catch"](1);
             res.status(500).json({
               message: "Something goes wrong",
@@ -285,108 +276,171 @@ function _createProcedure() {
             });
             console.log(_context5.t0);
 
-          case 13:
+          case 12:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee5, null, [[1, 9]]);
+    }, _callee5, null, [[1, 8]]);
+  }));
+  return _getProcedureStatus.apply(this, arguments);
+}
+
+function createProcedure(_x11, _x12) {
+  return _createProcedure.apply(this, arguments);
+}
+
+function _createProcedure() {
+  _createProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
+    var _req$body, positionId, procedureName, order, category, formName, newProcedure;
+
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _req$body = req.body, positionId = _req$body.positionId, procedureName = _req$body.procedureName, order = _req$body.order, category = _req$body.category, formName = _req$body.formName;
+            _context6.prev = 1;
+            _context6.next = 4;
+            return _Procedure["default"].create({
+              positionId: positionId,
+              procedureName: procedureName,
+              order: order,
+              category: category,
+              formName: formName
+            }, {
+              fields: ["positionId", "procedureName", "order", "category", "formName"]
+            });
+
+          case 4:
+            newProcedure = _context6.sent;
+
+            if (!newProcedure) {
+              _context6.next = 7;
+              break;
+            }
+
+            return _context6.abrupt("return", res.json({
+              message: "Procedure Created",
+              procedure: newProcedure
+            }));
+
+          case 7:
+            _context6.next = 13;
+            break;
+
+          case 9:
+            _context6.prev = 9;
+            _context6.t0 = _context6["catch"](1);
+            res.status(500).json({
+              message: "Something goes wrong",
+              data: {}
+            });
+            console.log(_context6.t0);
+
+          case 13:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6, null, [[1, 9]]);
   }));
   return _createProcedure.apply(this, arguments);
 }
 
-function updateProcedure(_x11, _x12) {
+function updateProcedure(_x13, _x14) {
   return _updateProcedure.apply(this, arguments);
 }
 
 function _updateProcedure() {
-  _updateProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(req, res) {
-    var id, _req$body2, positionId, procedureName, order, procedures;
+  _updateProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(req, res) {
+    var id, _req$body2, positionId, procedureName, order, category, formName, procedures;
 
-    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+    return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, positionId = _req$body2.positionId, procedureName = _req$body2.procedureName, order = _req$body2.order;
-            _context7.prev = 2;
-            _context7.next = 5;
+            _req$body2 = req.body, positionId = _req$body2.positionId, procedureName = _req$body2.procedureName, order = _req$body2.order, category = _req$body2.category, formName = _req$body2.formName;
+            _context8.prev = 2;
+            _context8.next = 5;
             return _Procedure["default"].findAll({
-              attributes: ['id', 'positionId', 'procedureName', 'order'],
+              attributes: ['id', 'positionId', 'procedureName', 'order', 'category', 'formName'],
               where: {
                 id: id
               }
             });
 
           case 5:
-            procedures = _context7.sent;
+            procedures = _context8.sent;
 
             if (procedures.length > 0) {
               procedures.forEach( /*#__PURE__*/function () {
-                var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(procedure) {
-                  return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(procedure) {
+                  return regeneratorRuntime.wrap(function _callee7$(_context7) {
                     while (1) {
-                      switch (_context6.prev = _context6.next) {
+                      switch (_context7.prev = _context7.next) {
                         case 0:
-                          _context6.next = 2;
+                          _context7.next = 2;
                           return procedure.update({
                             positionId: positionId,
                             procedureName: procedureName,
-                            order: order
+                            order: order,
+                            category: category,
+                            formName: formName
                           });
 
                         case 2:
                         case "end":
-                          return _context6.stop();
+                          return _context7.stop();
                       }
                     }
-                  }, _callee6);
+                  }, _callee7);
                 }));
 
-                return function (_x15) {
+                return function (_x17) {
                   return _ref.apply(this, arguments);
                 };
               }());
             }
 
-            return _context7.abrupt("return", res.json({
+            return _context8.abrupt("return", res.json({
               message: "Procedure Updated Succesfully",
               procedure: procedures
             }));
 
           case 10:
-            _context7.prev = 10;
-            _context7.t0 = _context7["catch"](2);
+            _context8.prev = 10;
+            _context8.t0 = _context8["catch"](2);
             res.status(500).json({
               message: "Something goes wrong",
               data: {}
             });
-            console.log(_context7.t0);
+            console.log(_context8.t0);
 
           case 14:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
       }
-    }, _callee7, null, [[2, 10]]);
+    }, _callee8, null, [[2, 10]]);
   }));
   return _updateProcedure.apply(this, arguments);
 }
 
-function deleteProcedure(_x13, _x14) {
+function deleteProcedure(_x15, _x16) {
   return _deleteProcedure.apply(this, arguments);
 }
 
 function _deleteProcedure() {
-  _deleteProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(req, res) {
+  _deleteProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(req, res) {
     var id, deleteRowCount;
-    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
       while (1) {
-        switch (_context8.prev = _context8.next) {
+        switch (_context9.prev = _context9.next) {
           case 0:
             id = req.params.id;
-            _context8.prev = 1;
-            _context8.next = 4;
+            _context9.prev = 1;
+            _context9.next = 4;
             return _Procedure["default"].destroy({
               where: {
                 id: id
@@ -394,28 +448,28 @@ function _deleteProcedure() {
             });
 
           case 4:
-            deleteRowCount = _context8.sent;
+            deleteRowCount = _context9.sent;
             res.json({
               message: "Procedure Deleted Succesfully",
               count: deleteRowCount
             });
-            _context8.next = 12;
+            _context9.next = 12;
             break;
 
           case 8:
-            _context8.prev = 8;
-            _context8.t0 = _context8["catch"](1);
+            _context9.prev = 8;
+            _context9.t0 = _context9["catch"](1);
             res.status(500).json({
               message: "Something goes wrong"
             });
-            console.log(_context8.t0);
+            console.log(_context9.t0);
 
           case 12:
           case "end":
-            return _context8.stop();
+            return _context9.stop();
         }
       }
-    }, _callee8, null, [[1, 8]]);
+    }, _callee9, null, [[1, 8]]);
   }));
   return _deleteProcedure.apply(this, arguments);
 }

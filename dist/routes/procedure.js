@@ -14,6 +14,7 @@ router.get('/', _procedure.getProcedures);
 router.get('/:id', _procedure.getProcedure);
 router.get('/byposition/:positionId', _procedure.getProcedureStatus);
 router.get('/byorder/:order', _procedure.getProcedureByOrder);
+router.get('/bycatorder/:category/:order', _procedure.getProcedureByCategoryOrder);
 router.post('/', _procedure.createProcedure);
 router.put('/:id', _procedure.updateProcedure);
 router["delete"]('/:id', _procedure.deleteProcedure);

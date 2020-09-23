@@ -155,22 +155,22 @@ function createProposalProvider(_x7, _x8) {
 
 function _createProposalProvider() {
   _createProposalProvider = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var _req$body, name, nit, date, formId, newProposalProvider;
+    var _req$body, name, economicProposal, date, formId, newProposalProvider;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _req$body = req.body, name = _req$body.name, nit = _req$body.nit, date = _req$body.date, formId = _req$body.formId;
+            _req$body = req.body, name = _req$body.name, economicProposal = _req$body.economicProposal, date = _req$body.date, formId = _req$body.formId;
             _context4.prev = 1;
             _context4.next = 4;
             return _ProposalProvider["default"].create({
               name: name,
-              nit: nit,
+              economicProposal: economicProposal,
               date: date,
               formId: formId
             }, {
-              fields: ["name", "nit", "date", "formId"]
+              fields: ["name", "economicProposal", "date", "formId"]
             });
 
           case 4:
@@ -215,18 +215,18 @@ function updateProposalProvider(_x9, _x10) {
 
 function _updateProposalProvider() {
   _updateProposalProvider = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
-    var id, _req$body2, name, nit, date, formId, proposalProviders;
+    var id, _req$body2, name, economicProposal, date, formId, proposalProviders;
 
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, name = _req$body2.name, nit = _req$body2.nit, date = _req$body2.date, formId = _req$body2.formId;
+            _req$body2 = req.body, name = _req$body2.name, economicProposal = _req$body2.economicProposal, date = _req$body2.date, formId = _req$body2.formId;
             _context6.prev = 2;
             _context6.next = 5;
             return _ProposalProvider["default"].findAll({
-              attributes: ["id", "name", "nit", "date", "formId"],
+              attributes: ["id", "name", "economicProposal", "date", "formId"],
               where: {
                 id: id
               }
@@ -245,7 +245,7 @@ function _updateProposalProvider() {
                           _context5.next = 2;
                           return proposalProvider.update({
                             name: name,
-                            nit: nit,
+                            economicProposal: economicProposal,
                             date: date,
                             formId: formId
                           });

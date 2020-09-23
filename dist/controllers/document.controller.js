@@ -32,7 +32,7 @@ function _getDocuments() {
             _context.prev = 0;
             _context.next = 3;
             return _Document["default"].findAll({
-              attributes: ["id", "name", "type", "formId", "src", "status", "createDate"]
+              attributes: ["id", "name", "type", "formId", "src", "status", "createDate", "fileName"]
             });
 
           case 3:
@@ -158,13 +158,13 @@ function createDocument(_x7, _x8) {
 
 function _createDocument() {
   _createDocument = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var _req$body, name, type, formId, src, status, createDate, newDocument;
+    var _req$body, name, type, formId, src, status, createDate, fileName, newDocument;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _req$body = req.body, name = _req$body.name, type = _req$body.type, formId = _req$body.formId, src = _req$body.src, status = _req$body.status, createDate = _req$body.createDate;
+            _req$body = req.body, name = _req$body.name, type = _req$body.type, formId = _req$body.formId, src = _req$body.src, status = _req$body.status, createDate = _req$body.createDate, fileName = _req$body.fileName;
             _context4.prev = 1;
             _context4.next = 4;
             return _Document["default"].create({
@@ -173,9 +173,10 @@ function _createDocument() {
               formId: formId,
               src: src,
               status: status,
-              createDate: createDate
+              createDate: createDate,
+              fileName: fileName
             }, {
-              fields: ["name", "type", "formId", "src", "status", "createDate"]
+              fields: ["name", "type", "formId", "src", "status", "createDate", "fileName"]
             });
 
           case 4:
@@ -220,18 +221,18 @@ function updateDocument(_x9, _x10) {
 
 function _updateDocument() {
   _updateDocument = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
-    var id, _req$body2, name, type, formId, src, status, createDate, documents;
+    var id, _req$body2, name, type, formId, src, status, createDate, fileName, documents;
 
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, name = _req$body2.name, type = _req$body2.type, formId = _req$body2.formId, src = _req$body2.src, status = _req$body2.status, createDate = _req$body2.createDate;
+            _req$body2 = req.body, name = _req$body2.name, type = _req$body2.type, formId = _req$body2.formId, src = _req$body2.src, status = _req$body2.status, createDate = _req$body2.createDate, fileName = _req$body2.fileName;
             _context6.prev = 2;
             _context6.next = 5;
             return _Document["default"].findAll({
-              attributes: ["id", "name", "type", "formId", "src", "status", "createDate"],
+              attributes: ["id", "name", "type", "formId", "src", "status", "createDate", "fileName"],
               where: {
                 id: id
               }
@@ -254,7 +255,8 @@ function _updateDocument() {
                             formId: formId,
                             src: src,
                             status: status,
-                            createDate: createDate
+                            createDate: createDate,
+                            fileName: fileName
                           });
 
                         case 2:

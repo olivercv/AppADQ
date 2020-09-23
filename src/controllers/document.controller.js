@@ -5,7 +5,7 @@ import Document from "../models/Document";
 export async function getDocuments(req, res) {
   try {
     const documents = await Document.findAll({
-      attributes: ["id", "name", "type","formId","src","status","createDate"],
+      attributes: ["id", "name", "type","formId","src","status","createDate","fileName"],
     });
     res.json({
       documents: documents,
@@ -60,7 +60,7 @@ export async function getDocumentForm(req, res) {
 }
 
 export async function createDocument(req, res) {
-  const { name, type, formId, src, status, createDate } = req.body;
+  const { name, type, formId, src, status, createDate, fileName } = req.body;
   try {
     let newDocument = await Document.create(
       {
@@ -69,10 +69,11 @@ export async function createDocument(req, res) {
         formId,
         src,
         status,
-        createDate
+        createDate,
+        fileName
       },
       {
-        fields: ["name", "type","formId","src","status","createDate"],
+        fields: ["name", "type","formId","src","status","createDate", "fileName"],
       }
     );
     if (newDocument) {
@@ -92,11 +93,11 @@ export async function createDocument(req, res) {
 
 export async function updateDocument(req, res) {
   const { id } = req.params;
-  const { name, type, formId, src, status, createDate} = req.body;
+  const { name, type, formId, src, status, createDate,fileName} = req.body;
 
   try {
     const documents = await Document.findAll({
-      attributes: ["id", "name","type","formId","src","status","createDate"],
+      attributes: ["id", "name","type","formId","src","status","createDate","fileName"],
       where: {
         id,
       },
@@ -109,7 +110,8 @@ export async function updateDocument(req, res) {
           formId,
           src,
           status,
-          createDate
+          createDate,
+          fileName
         });
       });
     }

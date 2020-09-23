@@ -128,7 +128,7 @@ function _getPOD() {
                 as: 'documents',
                 required: false,
                 // Pass in the Document attributes that you want to retrieve
-                attributes: ['id', 'name', 'type', 'src', 'status', 'createDate']
+                attributes: ['id', 'name', 'type', 'src', 'status', 'createDate', 'fileName']
               }]
             });
 

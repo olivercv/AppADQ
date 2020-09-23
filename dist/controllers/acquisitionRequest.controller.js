@@ -16,6 +16,8 @@ var _Product = _interopRequireDefault(require("../models/Product"));
 
 var _AdmCondition = _interopRequireDefault(require("../models/AdmCondition"));
 
+var _Document = _interopRequireDefault(require("../models/Document"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -137,6 +139,12 @@ function _getADQRequest() {
                 required: false,
                 // Pass in the Product attributes that you want to retrieve
                 attributes: ['id', 'priority', 'type', 'warranty', 'deliveryTime', 'placeDelivery', 'posibleProviders']
+              }, {
+                model: _Document["default"],
+                as: 'documents',
+                required: false,
+                // Pass in the Document attributes that you want to retrieve
+                attributes: ['id', 'name', 'type', 'src', 'status', 'createDate', 'fileName']
               }]
             });
 
@@ -173,13 +181,13 @@ function createAcquisitionRequest(_x7, _x8) {
 
 function _createAcquisitionRequest() {
   _createAcquisitionRequest = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var _req$body, code, version, validity, numRequest, requestDate, nPac, place, question1, question2, question3, coin, title, newAcquisitionRequest;
+    var _req$body, code, version, validity, numRequest, requestDate, nPac, place, question1, question2, question3, coin, title, category, selectionMethod, descriptionTitle, newAcquisitionRequest;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _req$body = req.body, code = _req$body.code, version = _req$body.version, validity = _req$body.validity, numRequest = _req$body.numRequest, requestDate = _req$body.requestDate, nPac = _req$body.nPac, place = _req$body.place, question1 = _req$body.question1, question2 = _req$body.question2, question3 = _req$body.question3, coin = _req$body.coin, title = _req$body.title;
+            _req$body = req.body, code = _req$body.code, version = _req$body.version, validity = _req$body.validity, numRequest = _req$body.numRequest, requestDate = _req$body.requestDate, nPac = _req$body.nPac, place = _req$body.place, question1 = _req$body.question1, question2 = _req$body.question2, question3 = _req$body.question3, coin = _req$body.coin, title = _req$body.title, category = _req$body.category, selectionMethod = _req$body.selectionMethod, descriptionTitle = _req$body.descriptionTitle;
             _context4.prev = 1;
             _context4.next = 4;
             return _AcquisitionRequest["default"].create({
@@ -194,9 +202,12 @@ function _createAcquisitionRequest() {
               question2: question2,
               question3: question3,
               coin: coin,
-              title: title
+              title: title,
+              category: category,
+              selectionMethod: selectionMethod,
+              descriptionTitle: descriptionTitle
             }, {
-              fields: ["code", "version", "validity", "numRequest", "requestDate", "nPac", "place", "question1", "question2", "question3", "coin", "title"]
+              fields: ["code", "version", "validity", "numRequest", "requestDate", "nPac", "place", "question1", "question2", "question3", "coin", "title", "category", "selectionMethod", "descriptionTitle"]
             });
 
           case 4:
@@ -241,18 +252,18 @@ function updateAcquisitionRequest(_x9, _x10) {
 
 function _updateAcquisitionRequest() {
   _updateAcquisitionRequest = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
-    var id, _req$body2, code, version, validity, numRequest, requestDate, nPac, place, question1, question2, question3, coin, title, acquisitionRequests;
+    var id, _req$body2, code, version, validity, numRequest, requestDate, nPac, place, question1, question2, question3, coin, title, category, selectionMethod, descriptionTitle, acquisitionRequests;
 
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, code = _req$body2.code, version = _req$body2.version, validity = _req$body2.validity, numRequest = _req$body2.numRequest, requestDate = _req$body2.requestDate, nPac = _req$body2.nPac, place = _req$body2.place, question1 = _req$body2.question1, question2 = _req$body2.question2, question3 = _req$body2.question3, coin = _req$body2.coin, title = _req$body2.title;
+            _req$body2 = req.body, code = _req$body2.code, version = _req$body2.version, validity = _req$body2.validity, numRequest = _req$body2.numRequest, requestDate = _req$body2.requestDate, nPac = _req$body2.nPac, place = _req$body2.place, question1 = _req$body2.question1, question2 = _req$body2.question2, question3 = _req$body2.question3, coin = _req$body2.coin, title = _req$body2.title, category = _req$body2.category, selectionMethod = _req$body2.selectionMethod, descriptionTitle = _req$body2.descriptionTitle;
             _context6.prev = 2;
             _context6.next = 5;
             return _AcquisitionRequest["default"].findAll({
-              attributes: ['id', 'code', 'version', 'validity', 'numRequest', 'requestDate', 'nPac', 'place', 'question1', 'question2', 'question3', 'coin', 'title'],
+              attributes: ['id', 'code', 'version', 'validity', 'numRequest', 'requestDate', 'nPac', 'place', 'question1', 'question2', 'question3', 'coin', 'title', 'category', 'selectionMethod', 'descriptionTitle'],
               where: {
                 id: id
               }
@@ -281,7 +292,10 @@ function _updateAcquisitionRequest() {
                             question2: question2,
                             question3: question3,
                             coin: coin,
-                            title: title
+                            title: title,
+                            category: category,
+                            selectionMethod: selectionMethod,
+                            descriptionTitle: descriptionTitle
                           });
 
                         case 2:

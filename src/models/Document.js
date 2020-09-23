@@ -23,6 +23,9 @@ const Document = sequelize.define('document',{
     },
     createDate: {
         type: Sequelize.DATE
+    },
+    fileName: {
+        type: Sequelize.TEXT
     }
 
 },{

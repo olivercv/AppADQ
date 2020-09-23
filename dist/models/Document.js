@@ -33,6 +33,9 @@ var Document = _database.sequelize.define('document', {
   },
   createDate: {
     type: _sequelize["default"].DATE
+  },
+  fileName: {
+    type: _sequelize["default"].TEXT
   }
 }, {
   timestamps: false

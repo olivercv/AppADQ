@@ -3,6 +3,7 @@ import { sequelize } from '../database/database';
 
 import Product from './Product';
 import AdmCondition from './AdmCondition';
+import Document from './Document';
 
 const AcquisitionRequest = sequelize.define('acquisitionRequest',{
     id: {
@@ -44,6 +45,15 @@ const AcquisitionRequest = sequelize.define('acquisitionRequest',{
     },
     title: {
         type: Sequelize.TEXT
+    },
+    category: {
+        type: Sequelize.TEXT
+    },
+    selectionMethod: {
+        type: Sequelize.TEXT
+    },
+    descriptionTitle: {
+        type: Sequelize.TEXT
     }
 
 },{
@@ -54,6 +64,9 @@ Product.belongsTo(AcquisitionRequest, {foreignKey: 'requestId', sourceKey: 'id'}
 
 AcquisitionRequest.hasMany(AdmCondition, {foreignKey:'requestId', sourceKey: 'id'});
 AdmCondition.belongsTo(AcquisitionRequest, {foreignKey: 'requestId', sourceKey: 'id'});
+
+AcquisitionRequest.hasMany(Document, {foreignKey:'formId', sourceKey: 'id'});
+Document.belongsTo(AcquisitionRequest, {foreignKey: 'formId', sourceKey: 'id'});
 
 
 export default AcquisitionRequest;

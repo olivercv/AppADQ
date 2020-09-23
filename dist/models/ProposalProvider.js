@@ -21,8 +21,8 @@ var ProposalProvider = _database.sequelize.define('proposalProvider', {
   name: {
     type: _sequelize["default"].TEXT
   },
-  nit: {
-    type: _sequelize["default"].TEXT
+  economicProposal: {
+    type: _sequelize["default"].NUMBER
   },
   date: {
     type: _sequelize["default"].DATE

@@ -1,6 +1,7 @@
 import Status from "../models/Status";
-import Procedure from "../models/Procedure";
-import AcquisitionRequest from "../models/AcquisitionRequest";
+import Procedure from "../models/Procedure"
+import AcquisitionRequest from "../models/AcquisitionRequest"
+import BudgetCertification from "../models/BudgetCertification";
 const { Op } = require('sequelize');
 
 
@@ -38,10 +39,7 @@ export async function getStatusByRequest(req, res) {
       include: [
         {
           model: Procedure,
-          as: 'procedure',
-        },{
-          model: AcquisitionRequest,
-          as: 'acquisitionRequest',
+          as: 'procedure', 
         }
       ]
 
@@ -54,6 +52,22 @@ export async function getStatusByRequest(req, res) {
   }
 }
 
+export async function getStatusByRequestForm(req, res) {
+  const { codeRequest } = req.params;
+  try {
+    const statuss = await Status.findAll({
+      where: {
+        codeRequest,
+        status: 'terminado'
+      }
+    });
+    res.json({
+      status: statuss,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export async function getCurrentStatus(req, res) {
   const { codeRequest } = req.params;
@@ -98,9 +112,8 @@ export async function getStatusPositionId(req, res) {
       where: {
         // current: true,
         [Op.or]: [
-          { current : true },
-          { userId: userId,
-            current: true }
+          { userId: userId },
+          { current: true }
         ]
       },
       include: [{
@@ -109,7 +122,7 @@ export async function getStatusPositionId(req, res) {
           // positionId: id
           [Op.or]: [
             { positionId : id },
-            { id: procedureId }
+            { positionId : null }
           ]
         }
       },

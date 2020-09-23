@@ -34,6 +34,7 @@ function uploadFile(req, res, next) {
 
 
   var fil = req.files.sfile;
+  var nFile = fil.name;
   var shortName = fil.name.split(".");
   var ext = shortName[shortName = 1]; // solo se aceptaran estas extensiones
 
@@ -60,7 +61,7 @@ function uploadFile(req, res, next) {
       });
     }
 
-    uploadDocument(id, nameFile, ext, res);
+    uploadDocument(id, nameFile, nFile, ext, res);
   });
 }
 
@@ -71,12 +72,12 @@ var deleteOldPath = function deleteOldPath(path) {
   }
 };
 
-function uploadDocument(_x, _x2, _x3, _x4) {
+function uploadDocument(_x, _x2, _x3, _x4, _x5) {
   return _uploadDocument.apply(this, arguments);
 }
 
 function _uploadDocument() {
-  _uploadDocument = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(id, nameFile, ext, res) {
+  _uploadDocument = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(id, nameFile, nFile, ext, res) {
     var oldPath, document;
     return regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -95,7 +96,8 @@ function _uploadDocument() {
               deleteOldPath(oldPath);
               document.update({
                 type: ext,
-                src: nameFile
+                src: nameFile,
+                fileName: nFile
               });
               res.json({
                 message: "Document OK",

@@ -13,6 +13,8 @@ var _Product = _interopRequireDefault(require("./Product"));
 
 var _AdmCondition = _interopRequireDefault(require("./AdmCondition"));
 
+var _Document = _interopRequireDefault(require("./Document"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var AcquisitionRequest = _database.sequelize.define('acquisitionRequest', {
@@ -55,6 +57,15 @@ var AcquisitionRequest = _database.sequelize.define('acquisitionRequest', {
   },
   title: {
     type: _sequelize["default"].TEXT
+  },
+  category: {
+    type: _sequelize["default"].TEXT
+  },
+  selectionMethod: {
+    type: _sequelize["default"].TEXT
+  },
+  descriptionTitle: {
+    type: _sequelize["default"].TEXT
   }
 }, {
   timestamps: false
@@ -77,6 +88,16 @@ AcquisitionRequest.hasMany(_AdmCondition["default"], {
 
 _AdmCondition["default"].belongsTo(AcquisitionRequest, {
   foreignKey: 'requestId',
+  sourceKey: 'id'
+});
+
+AcquisitionRequest.hasMany(_Document["default"], {
+  foreignKey: 'formId',
+  sourceKey: 'id'
+});
+
+_Document["default"].belongsTo(AcquisitionRequest, {
+  foreignKey: 'formId',
   sourceKey: 'id'
 });
 

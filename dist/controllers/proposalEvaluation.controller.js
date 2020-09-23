@@ -129,7 +129,7 @@ function _getPEP() {
                 as: 'proposalProviders',
                 required: false,
                 // Pass in the Document attributes that you want to retrieve
-                attributes: ['id', 'name', 'nit', 'date', 'formId']
+                attributes: ['id', 'name', 'economicProposal', 'date', 'formId']
               }]
             });
 

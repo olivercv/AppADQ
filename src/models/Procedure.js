@@ -16,7 +16,7 @@ const Procedure = sequelize.define('procedure',{
         type: Sequelize.INTEGER
     },
     category: {
-        type: Sequelize.INTEGER
+        type: Sequelize.TEXT
     },
     formName: {
         type: Sequelize.TEXT

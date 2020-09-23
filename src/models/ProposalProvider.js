@@ -10,8 +10,8 @@ const ProposalProvider = sequelize.define('proposalProvider',{
     name: {
         type: Sequelize.TEXT
     },
-    nit: {
-        type: Sequelize.TEXT
+    economicProposal: {
+        type: Sequelize.NUMBER
     },
     date: {
         type: Sequelize.DATE

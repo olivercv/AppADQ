@@ -16,6 +16,7 @@ export function uploadFile(req, res, next) {
   }
   // Obtener nombre del archivo
   var fil = req.files.sfile;
+  var nFile = fil.name;
   var shortName = fil.name.split(".");
   var ext = shortName[(shortName = 1)];
   // solo se aceptaran estas extensiones
@@ -42,7 +43,7 @@ export function uploadFile(req, res, next) {
         errors: err,
       });
     }
-    uploadDocument(id, nameFile,ext, res);
+    uploadDocument(id, nameFile,nFile,ext, res);
   });
 }
 
@@ -53,14 +54,14 @@ const deleteOldPath = ( path ) => {
   }
 }
 
-async function uploadDocument(id, nameFile,ext, res) {
+async function uploadDocument(id, nameFile,nFile,ext, res) {
   let oldPath = '';
   try {
     const document = await Document.findByPk(id);
     if (document) {
       oldPath = `./uploads/${document.src}`;
       deleteOldPath(oldPath);
-      document.update({type: ext,src: nameFile});
+      document.update({type: ext,src: nameFile,fileName:nFile});
       res.json({
         message: "Document OK",
         document: document,

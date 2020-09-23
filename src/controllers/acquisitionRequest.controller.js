@@ -1,6 +1,8 @@
 import AcquisitionRequest from "../models/AcquisitionRequest";
 import Product from "../models/Product";
 import AdmCondition from "../models/AdmCondition";
+import Document from '../models/Document';
+
 
 export async function getAcquisitionRequests(req, res) {
   try {
@@ -52,7 +54,14 @@ export async function getADQRequest(req, res) {
         required: false,
       // Pass in the Product attributes that you want to retrieve
         attributes: ['id', 'priority','type','warranty','deliveryTime','placeDelivery','posibleProviders']
-      },
+      },{
+        model: Document,
+        as: 'documents',
+        required: false,
+      // Pass in the Document attributes that you want to retrieve
+        attributes: ['id', 'name','type','src','status','createDate','fileName']
+      }
+
     ]
     });
     res.json({
@@ -81,6 +90,9 @@ export async function createAcquisitionRequest(req, res) {
     question3,
     coin,
     title,
+    category,
+    selectionMethod,
+    descriptionTitle,
   } = req.body;
   try {
     let newAcquisitionRequest = await AcquisitionRequest.create(
@@ -97,6 +109,9 @@ export async function createAcquisitionRequest(req, res) {
         question3,
         coin,
         title,
+        category,
+        selectionMethod,
+        descriptionTitle,
       },
       {
         fields: [
@@ -112,6 +127,9 @@ export async function createAcquisitionRequest(req, res) {
           "question3",
           "coin",
           "title",
+          "category",
+          "selectionMethod",
+          "descriptionTitle",
         ],
       }
     );
@@ -145,6 +163,9 @@ export async function updateAcquisitionRequest(req, res) {
     question3,
     coin,
     title,
+    category,
+    selectionMethod,
+    descriptionTitle,
   } = req.body;
 
   try {
@@ -163,6 +184,9 @@ export async function updateAcquisitionRequest(req, res) {
         'question3',
         'coin',
         'title',
+        'category',
+        'selectionMethod',
+        'descriptionTitle',
       ],
       where: {
         id,
@@ -182,7 +206,10 @@ export async function updateAcquisitionRequest(req, res) {
           question2,
           question3,
           coin,
-          title
+          title,
+          category,
+          selectionMethod,
+          descriptionTitle,
         });
       })
     }
