@@ -60,11 +60,10 @@ export async function getLCD(req, res) {
 }
 
 export async function createLegalContract(req, res) {
-  const { code, description,responsable } = req.body;
+  const { description,responsable } = req.body;
   try {
     let newLegalContract = await LegalContract.create(
       {
-        code,
         description,
         responsable
       },
@@ -89,11 +88,11 @@ export async function createLegalContract(req, res) {
 
 export async function updateLegalContract(req, res) {
   const { id } = req.params;
-  const { code, description, responsable } = req.body;
+  const {description, responsable } = req.body;
 
   try {
     const legalContracts = await LegalContract.findAll({
-      attributes: ['id', 'code', 'description','responsable'],
+      attributes: ['id', 'description','responsable'],
       where: {
         id,
       },
@@ -101,7 +100,6 @@ export async function updateLegalContract(req, res) {
     if (legalContracts.length > 0) {
       legalContracts.forEach(async (legalContract) => {
         await legalContract.update({
-          code,
           description,
           responsable
         });

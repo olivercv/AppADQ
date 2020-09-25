@@ -165,17 +165,16 @@ function createLegalContract(_x7, _x8) {
 
 function _createLegalContract() {
   _createLegalContract = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var _req$body, code, description, responsable, newLegalContract;
+    var _req$body, description, responsable, newLegalContract;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _req$body = req.body, code = _req$body.code, description = _req$body.description, responsable = _req$body.responsable;
+            _req$body = req.body, description = _req$body.description, responsable = _req$body.responsable;
             _context4.prev = 1;
             _context4.next = 4;
             return _LegalContract["default"].create({
-              code: code,
               description: description,
               responsable: responsable
             }, {
@@ -224,18 +223,18 @@ function updateLegalContract(_x9, _x10) {
 
 function _updateLegalContract() {
   _updateLegalContract = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
-    var id, _req$body2, code, description, responsable, legalContracts;
+    var id, _req$body2, description, responsable, legalContracts;
 
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, code = _req$body2.code, description = _req$body2.description, responsable = _req$body2.responsable;
+            _req$body2 = req.body, description = _req$body2.description, responsable = _req$body2.responsable;
             _context6.prev = 2;
             _context6.next = 5;
             return _LegalContract["default"].findAll({
-              attributes: ['id', 'code', 'description', 'responsable'],
+              attributes: ['id', 'description', 'responsable'],
               where: {
                 id: id
               }
@@ -253,7 +252,6 @@ function _updateLegalContract() {
                         case 0:
                           _context5.next = 2;
                           return legalContract.update({
-                            code: code,
                             description: description,
                             responsable: responsable
                           });

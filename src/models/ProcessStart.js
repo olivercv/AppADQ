@@ -7,9 +7,6 @@ const ProcessStart = sequelize.define('processStart',{
         type: Sequelize.UUID,
         primaryKey: true
     },
-    category: {
-        type: Sequelize.TEXT
-    },
     startDate: {
         type: Sequelize.DATE
     },

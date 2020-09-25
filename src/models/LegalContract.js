@@ -10,9 +10,7 @@ const LegalContract = sequelize.define('legalContract',{
     description: {
         type: Sequelize.TEXT
     },
-    code: {
-        type: Sequelize.TEXT
-    },
+
     responsable: {
         type: Sequelize.TEXT
     },

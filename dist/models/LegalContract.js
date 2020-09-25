@@ -21,9 +21,6 @@ var LegalContract = _database.sequelize.define('legalContract', {
   description: {
     type: _sequelize["default"].TEXT
   },
-  code: {
-    type: _sequelize["default"].TEXT
-  },
   responsable: {
     type: _sequelize["default"].TEXT
   }

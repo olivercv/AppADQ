@@ -145,7 +145,7 @@ function _getStatusByRequestForm() {
             return _Status["default"].findAll({
               where: {
                 codeRequest: codeRequest,
-                status: 'terminado'
+                status: 'enviado'
               }
             });
 

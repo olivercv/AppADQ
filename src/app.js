@@ -25,6 +25,7 @@ import processStartRoutes from './routes/processStart';
 import purchaseOrderRoutes from './routes/purchaseOrder';
 import technicalEvaluationRoutes from './routes/technicalEvaluation';
 import legalContractRoutes from './routes/legalContract';
+import specificationRoutes from './routes/specification';
 // import "core-js/stable";
 import "regenerator-runtime/runtime";
 
@@ -66,6 +67,8 @@ app.use('/api/processStarts',processStartRoutes);
 app.use('/api/purchaseOrders',purchaseOrderRoutes);
 app.use('/api/technicalEvaluations',technicalEvaluationRoutes);
 app.use('/api/legalContracts', legalContractRoutes);
+app.use('/api/specifications',specificationRoutes);
+
 app.use('/uploads', express.static(path.resolve('uploads')));
 
 // Configuracion para subir el backend y el front en un solo puerto

@@ -60,16 +60,15 @@ export async function getPSD(req, res) {
 }
 
 export async function createProcessStart(req, res) {
-  const { category, startDate, endDate } = req.body;
+  const { startDate, endDate } = req.body;
   try {
     let newProcessStart = await ProcessStart.create(
       {
-        category,
         startDate,
         endDate,
       },
       {
-        fields: ["category", "startDate","endDate"],
+        fields: ["startDate","endDate"],
       }
     );
     if (newProcessStart) {
@@ -89,11 +88,11 @@ export async function createProcessStart(req, res) {
 
 export async function updateProcessStart(req, res) {
   const { id } = req.params;
-  const { category, startDate, endDate } = req.body;
+  const { startDate, endDate } = req.body;
 
   try {
     const processStarts = await ProcessStart.findAll({
-      attributes: ['id', 'category', 'startDate', 'endDate'],
+      attributes: ['id', 'startDate', 'endDate'],
       where: {
         id,
       },
@@ -101,7 +100,7 @@ export async function updateProcessStart(req, res) {
     if (processStarts.length > 0) {
       processStarts.forEach(async (processStart) => {
         await processStart.update({
-          category,
+          
           startDate,
           endDate
         });

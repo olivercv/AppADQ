@@ -18,9 +18,6 @@ var ProcessStart = _database.sequelize.define('processStart', {
     type: _sequelize["default"].UUID,
     primaryKey: true
   },
-  category: {
-    type: _sequelize["default"].TEXT
-  },
   startDate: {
     type: _sequelize["default"].DATE
   },

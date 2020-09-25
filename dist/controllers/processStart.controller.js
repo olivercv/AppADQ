@@ -165,21 +165,20 @@ function createProcessStart(_x7, _x8) {
 
 function _createProcessStart() {
   _createProcessStart = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var _req$body, category, startDate, endDate, newProcessStart;
+    var _req$body, startDate, endDate, newProcessStart;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _req$body = req.body, category = _req$body.category, startDate = _req$body.startDate, endDate = _req$body.endDate;
+            _req$body = req.body, startDate = _req$body.startDate, endDate = _req$body.endDate;
             _context4.prev = 1;
             _context4.next = 4;
             return _ProcessStart["default"].create({
-              category: category,
               startDate: startDate,
               endDate: endDate
             }, {
-              fields: ["category", "startDate", "endDate"]
+              fields: ["startDate", "endDate"]
             });
 
           case 4:
@@ -224,18 +223,18 @@ function updateProcessStart(_x9, _x10) {
 
 function _updateProcessStart() {
   _updateProcessStart = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
-    var id, _req$body2, category, startDate, endDate, processStarts;
+    var id, _req$body2, startDate, endDate, processStarts;
 
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, category = _req$body2.category, startDate = _req$body2.startDate, endDate = _req$body2.endDate;
+            _req$body2 = req.body, startDate = _req$body2.startDate, endDate = _req$body2.endDate;
             _context6.prev = 2;
             _context6.next = 5;
             return _ProcessStart["default"].findAll({
-              attributes: ['id', 'category', 'startDate', 'endDate'],
+              attributes: ['id', 'startDate', 'endDate'],
               where: {
                 id: id
               }
@@ -253,7 +252,6 @@ function _updateProcessStart() {
                         case 0:
                           _context5.next = 2;
                           return processStart.update({
-                            category: category,
                             startDate: startDate,
                             endDate: endDate
                           });

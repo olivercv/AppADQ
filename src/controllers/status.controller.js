@@ -58,7 +58,7 @@ export async function getStatusByRequestForm(req, res) {
     const statuss = await Status.findAll({
       where: {
         codeRequest,
-        status: 'terminado'
+        status: 'enviado'
       }
     });
     res.json({
