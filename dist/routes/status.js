@@ -14,6 +14,7 @@ router.get('/', _status.getStatuss);
 router.get('/:id', _status.getStatus);
 router.get('/byrequest/:codeRequest', _status.getStatusByRequest);
 router.get('/detailForms/:codeRequest', _status.getStatusByRequestForm);
+router.get('/getByProcedure/:codeRequest/:procedureId', _status.getStatusByRequestAndProcedure);
 router.get('/current/:codeRequest', _status.getCurrentStatus);
 router.post('/', _status.createStatus);
 router.put('/:id', _status.updateStatus);

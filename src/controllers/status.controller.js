@@ -69,6 +69,23 @@ export async function getStatusByRequestForm(req, res) {
   }
 }
 
+export async function getStatusByRequestAndProcedure(req, res) {
+  const { codeRequest, procedureId } = req.params;
+  try {
+    const statuss = await Status.findAll({
+      where: {
+        codeRequest,
+        procedureId
+      }
+    });
+    res.json({
+      status: statuss,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getCurrentStatus(req, res) {
   const { codeRequest } = req.params;
   // console.log('paramtros', req.params);
