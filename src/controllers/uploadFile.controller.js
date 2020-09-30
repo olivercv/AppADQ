@@ -20,7 +20,7 @@ export function uploadFile(req, res, next) {
   var shortName = fil.name.split(".");
   var ext = shortName[(shortName = 1)];
   // solo se aceptaran estas extensiones
-  var validExt = ["pdf", "doc", "docx", "xls", "xlsx"];
+  var validExt = ["pdf", "doc", "docx", "xls", "xlsx", "zip", "rar", "png", "jpeg"];
   if (validExt.indexOf(ext) < 0) {
     return res.status(400).json({
       ok: false,
