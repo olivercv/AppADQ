@@ -298,7 +298,11 @@ function _getStatusPositionId() {
               where: _defineProperty({}, Op.or, [{
                 userId: userId
               }, {
-                current: true
+                current: true,
+                userId: userId
+              }, {
+                current: true,
+                userId: null
               }]),
               include: [{
                 model: _Procedure["default"],

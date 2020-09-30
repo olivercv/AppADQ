@@ -129,8 +129,9 @@ export async function getStatusPositionId(req, res) {
       where: {
         // current: true,
         [Op.or]: [
-          { userId: userId },
-          { current: true }
+          { userId },
+          { current: true, userId },
+          { current: true, userId: null }
         ]
       },
       include: [{
