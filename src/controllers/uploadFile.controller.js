@@ -18,9 +18,11 @@ export function uploadFile(req, res, next) {
   var fil = req.files.sfile;
   var nFile = fil.name;
   var shortName = fil.name.split(".");
-  var ext = shortName[(shortName = 1)];
+  var lenghtExt = shortName.length;
+  var ext = shortName[lenghtExt-1];
   // solo se aceptaran estas extensiones
-  var validExt = ["pdf", "doc", "docx", "xls", "xlsx", "zip", "rar", "png", "jpeg"];
+  var validExt = ["pdf", "doc", "docx", "xls", "xlsx",'xlsm', "zip", "rar", "png", "jpeg", "jpg"];
+  
   if (validExt.indexOf(ext) < 0) {
     return res.status(400).json({
       ok: false,
@@ -77,6 +79,20 @@ async function uploadDocument(id, nameFile,nFile,ext, res) {
   
 }
 
+export function uploadFiles (req, res, next){
+  var id = req.params.id;
+  // tipos de colecciones
+  if (!req.files) {
+    return res.status(400).json({
+      ok: false,
+      message: "No selecciono ningun archivo",
+      errors: "Debe de seleccionar un archivo",
+    });
+  }
+  console.log(req.files.dropzone);
+}
+
+
 export const getFile = (req, res = response) => {
   
     const sfile =  req.params.src;
@@ -103,4 +119,6 @@ export const getFile = (req, res = response) => {
     	
 
 }
+
+
 

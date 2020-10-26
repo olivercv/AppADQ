@@ -26,6 +26,7 @@ import purchaseOrderRoutes from './routes/purchaseOrder';
 import technicalEvaluationRoutes from './routes/technicalEvaluation';
 import legalContractRoutes from './routes/legalContract';
 import specificationRoutes from './routes/specification';
+import openingActRoutes from './routes/openingAct';
 // import "core-js/stable";
 import "regenerator-runtime/runtime";
 
@@ -68,6 +69,7 @@ app.use('/api/purchaseOrders',purchaseOrderRoutes);
 app.use('/api/technicalEvaluations',technicalEvaluationRoutes);
 app.use('/api/legalContracts', legalContractRoutes);
 app.use('/api/specifications',specificationRoutes);
+app.use('/api/openingActs',openingActRoutes);
 
 app.use('/uploads', express.static(path.resolve('uploads')));
 

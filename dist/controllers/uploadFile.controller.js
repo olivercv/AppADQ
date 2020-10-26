@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.uploadFile = uploadFile;
+exports.uploadFiles = uploadFiles;
 exports.getFile = void 0;
 
 var _Document = _interopRequireDefault(require("../models/Document"));
@@ -36,9 +37,10 @@ function uploadFile(req, res, next) {
   var fil = req.files.sfile;
   var nFile = fil.name;
   var shortName = fil.name.split(".");
-  var ext = shortName[shortName = 1]; // solo se aceptaran estas extensiones
+  var lenghtExt = shortName.length;
+  var ext = shortName[lenghtExt - 1]; // solo se aceptaran estas extensiones
 
-  var validExt = ["pdf", "doc", "docx", "xls", "xlsx", "zip", "rar", "png", "jpeg"];
+  var validExt = ["pdf", "doc", "docx", "xls", "xlsx", 'xlsm', "zip", "rar", "png", "jpeg", "jpg"];
 
   if (validExt.indexOf(ext) < 0) {
     return res.status(400).json({
@@ -124,6 +126,20 @@ function _uploadDocument() {
     }, _callee, null, [[1, 8]]);
   }));
   return _uploadDocument.apply(this, arguments);
+}
+
+function uploadFiles(req, res, next) {
+  var id = req.params.id; // tipos de colecciones
+
+  if (!req.files) {
+    return res.status(400).json({
+      ok: false,
+      message: "No selecciono ningun archivo",
+      errors: "Debe de seleccionar un archivo"
+    });
+  }
+
+  console.log(req.files.dropzone);
 }
 
 var getFile = function getFile(req) {

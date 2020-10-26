@@ -145,8 +145,8 @@ function _getStatusByRequestForm() {
             _context3.next = 4;
             return _Status["default"].findAll({
               where: {
-                codeRequest: codeRequest,
-                status: 'enviado'
+                codeRequest: codeRequest // status: 'enviado'
+
               }
             });
 
