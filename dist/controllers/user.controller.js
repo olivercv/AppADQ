@@ -21,6 +21,8 @@ var _Position = _interopRequireDefault(require("../models/Position"));
 
 var _Office = _interopRequireDefault(require("../models/Office"));
 
+var _Role = _interopRequireDefault(require("../models/Role"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _readOnlyError(name) { throw new Error("\"" + name + "\" is read-only"); }
@@ -50,6 +52,11 @@ function _getUsers() {
                   model: _Office["default"],
                   as: 'office'
                 }]
+              }, {
+                model: _Role["default"],
+                as: 'role',
+                required: false,
+                attributes: ['id', 'roleName', 'level']
               }]
             });
 
@@ -102,6 +109,11 @@ function _getUser() {
                   model: _Office["default"],
                   as: 'office'
                 }]
+              }, {
+                model: _Role["default"],
+                as: 'role',
+                required: false,
+                attributes: ['id', 'roleName', 'level']
               }]
             });
 
@@ -139,13 +151,13 @@ function createUser(_x5, _x6) {
 
 function _createUser() {
   _createUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res) {
-    var _req$body, name, lastname, email, password, role, positionId, newUser;
+    var _req$body, name, lastname, email, password, access, roleId, positionId, newUser;
 
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _req$body = req.body, name = _req$body.name, lastname = _req$body.lastname, email = _req$body.email, password = _req$body.password, role = _req$body.role, positionId = _req$body.positionId;
+            _req$body = req.body, name = _req$body.name, lastname = _req$body.lastname, email = _req$body.email, password = _req$body.password, access = _req$body.access, roleId = _req$body.roleId, positionId = _req$body.positionId;
             _context3.prev = 1;
             _context3.next = 4;
             return _User["default"].create({
@@ -153,10 +165,11 @@ function _createUser() {
               lastname: lastname,
               email: email,
               password: password,
-              role: role,
+              access: access,
+              roleId: roleId,
               positionId: positionId
             }, {
-              fields: ["name", "lastname", "email", "password", "role", "positionId"]
+              fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId"]
             });
 
           case 4:
@@ -201,7 +214,7 @@ function updateUser(_x7, _x8) {
 
 function _updateUser() {
   _updateUser = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
-    var id, _req$body2, name, lastname, email, password, role, positionId, users;
+    var id, _req$body2, name, lastname, email, password, access, roleId, positionId, users;
 
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
@@ -209,11 +222,11 @@ function _updateUser() {
           case 0:
             id = req.params.id;
             console.log(req.params);
-            _req$body2 = req.body, name = _req$body2.name, lastname = _req$body2.lastname, email = _req$body2.email, password = _req$body2.password, role = _req$body2.role, positionId = _req$body2.positionId;
+            _req$body2 = req.body, name = _req$body2.name, lastname = _req$body2.lastname, email = _req$body2.email, password = _req$body2.password, access = _req$body2.access, roleId = _req$body2.roleId, positionId = _req$body2.positionId;
             _context5.prev = 3;
             _context5.next = 6;
             return _User["default"].findAll({
-              attributes: ["id", "name", "lastname", "email", "password", "role", "positionId"],
+              attributes: ["id", "name", "lastname", "email", "password", "access", "roleId", "positionId"],
               where: {
                 id: id
               }
@@ -239,7 +252,8 @@ function _updateUser() {
                             lastname: lastname,
                             email: email,
                             password: password,
-                            role: role,
+                            access: access,
+                            roleId: roleId,
                             positionId: positionId
                           });
 
@@ -334,13 +348,13 @@ function register(_x11, _x12) {
 
 function _register() {
   _register = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(req, res) {
-    var _req$body3, name, lastname, email, password, role, positionId, hash, newUser, token;
+    var _req$body3, name, lastname, email, password, access, roleId, positionId, hash, newUser, token;
 
     return regeneratorRuntime.wrap(function _callee7$(_context7) {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            _req$body3 = req.body, name = _req$body3.name, lastname = _req$body3.lastname, email = _req$body3.email, password = _req$body3.password, role = _req$body3.role, positionId = _req$body3.positionId;
+            _req$body3 = req.body, name = _req$body3.name, lastname = _req$body3.lastname, email = _req$body3.email, password = _req$body3.password, access = _req$body3.access, roleId = _req$body3.roleId, positionId = _req$body3.positionId;
             hash = _bcryptNode["default"].hashSync(password);
             _context7.prev = 2;
             _context7.next = 5;
@@ -349,10 +363,11 @@ function _register() {
               lastname: lastname,
               email: email,
               password: hash,
-              role: role,
+              access: access,
+              roleId: roleId,
               positionId: positionId
             }, {
-              fields: ["name", "lastname", "email", "password", "role", "positionId"]
+              fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId"]
             });
 
           case 5:

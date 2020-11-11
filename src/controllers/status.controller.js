@@ -100,7 +100,7 @@ export async function getCurrentStatus(req, res) {
         model: Procedure,
         as: 'procedure',
         required: false,
-        attributes: ['id', 'positionId','procedureName','order']
+        attributes: ['id', 'roleId', 'internal', 'procedureName','order']
       },
       {
         model: AcquisitionRequest,
@@ -139,8 +139,8 @@ export async function getStatusPositionId(req, res) {
         where: {
           // positionId: id
           [Op.or]: [
-            { positionId : id },
-            { positionId : null }
+            { roleId : id },
+            { roleId : null }
           ]
         }
       },

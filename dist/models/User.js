@@ -28,8 +28,11 @@ var User = _database.sequelize.define('user', {
   password: {
     type: _sequelize["default"].TEXT
   },
-  role: {
+  access: {
     type: _sequelize["default"].TEXT
+  },
+  roleId: {
+    type: _sequelize["default"].UUID
   },
   positionId: {
     type: _sequelize["default"].UUID

@@ -61,6 +61,8 @@ var _specification = _interopRequireDefault(require("./routes/specification"));
 
 var _openingAct = _interopRequireDefault(require("./routes/openingAct"));
 
+var _role = _interopRequireDefault(require("./routes/role"));
+
 require("regenerator-runtime/runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -109,6 +111,7 @@ app.use('/api/technicalEvaluations', _technicalEvaluation["default"]);
 app.use('/api/legalContracts', _legalContract["default"]);
 app.use('/api/specifications', _specification["default"]);
 app.use('/api/openingActs', _openingAct["default"]);
+app.use('/api/roles', _role["default"]);
 app.use('/uploads', _express["default"]["static"](_path["default"].resolve('uploads'))); // Configuracion para subir el backend y el front en un solo puerto
 
 app.use('/', _express["default"]["static"]('client', {

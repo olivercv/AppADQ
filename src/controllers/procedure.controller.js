@@ -1,9 +1,17 @@
 import Procedure from "../models/Procedure";
 import Status from "../models/Status";
+import Role from "../models/Role";
 
 export async function getProcedures(req, res) {
   try {
-    const procedures = await Procedure.findAll();
+    const procedures = await Procedure.findAll({
+      include: [{
+            model: Role,
+            as: 'role'
+      }],
+      order: [['order']],
+    });
+    // console.log('resultados procedimientos ',res);
     res.json({
       procedures: procedures,
     });
@@ -100,11 +108,11 @@ export async function getProcedureByCategoryOrder(req, res) {
 }
 
 export async function getProcedureStatus(req, res) {
-  const { positionId } = req.params;
+  const { roleId } = req.params;
   try {
     const procedure = await Procedure.findAll({
       where: {
-        positionId,
+        roleId,
       },
       include: [{
         model: Status,
@@ -112,7 +120,7 @@ export async function getProcedureStatus(req, res) {
         required: false,
         where: { current: true },
       // Pass in the Product attributes that you want to retrieve
-        attributes: ['id', 'procedureId','userId','status','dateAt','current','codeRequest', 'formId', 'name']
+        attributes: ['id', 'roleId','userId','status','dateAt','current','codeRequest', 'formId', 'name']
       }]
     });
     res.json({
@@ -128,15 +136,15 @@ export async function getProcedureStatus(req, res) {
 }
 
 export async function createProcedure(req, res) {
-  const { positionId, procedureName, order, category, formName } = req.body;
+  const { roleId, internal, procedureName, order, category, formName } = req.body;
   try {
     let newProcedure = await Procedure.create(
       {
-        positionId, procedureName, order, category, formName
+        roleId, internal, procedureName, order, category, formName
         
       },
       {
-        fields: ["positionId", "procedureName", "order", "category", "formName"],
+        fields: ["roleId", "internal", "procedureName", "order", "category", "formName"],
       }
     );
     if (newProcedure) {
@@ -156,11 +164,11 @@ export async function createProcedure(req, res) {
 
 export async function updateProcedure(req, res) {
   const { id } = req.params;
-  const {positionId, procedureName, order, category, formName} = req.body;
+  const {roleId, internal, procedureName, order, category, formName} = req.body;
 
   try {
     const procedures = await Procedure.findAll({
-      attributes: ['id','positionId', 'procedureName', 'order', 'category', 'formName'],
+      attributes: ['id','roleId', 'internal', 'procedureName', 'order', 'category', 'formName'],
       where: {
         id,
       },
@@ -168,7 +176,7 @@ export async function updateProcedure(req, res) {
     if (procedures.length > 0) {
       procedures.forEach(async (procedure) => {
         await procedure.update({
-            positionId, procedureName, order, category, formName
+            roleId, internal, procedureName, order, category, formName
             
         });
       });

@@ -18,8 +18,11 @@ const User = sequelize.define('user',{
     password: {
         type: Sequelize.TEXT
     },
-    role: {
+    access: {
         type: Sequelize.TEXT
+    },
+    roleId: {
+        type: Sequelize.UUID
     },
     positionId: {
         type: Sequelize.UUID

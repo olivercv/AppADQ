@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt-node';
 import { createToken } from  '../services/jwt';
 import Position from "../models/Position"
 import Office from "../models/Office"
+import Role from "../models/Role";
 export async function getUsers(req, res) {
   try {
     const users = await User.findAll({
@@ -14,7 +15,12 @@ export async function getUsers(req, res) {
             model: Office,
             as: 'office'
           }]
-        }
+        },{
+          model: Role,
+            as: 'role',
+            required: false,
+            attributes: ['id', 'roleName','level']
+          }
       ]
     });
     res.json({
@@ -42,7 +48,12 @@ export async function getUser(req, res) {
               model: Office,
               as: 'office'
             }]
-        }]
+        },{
+          model: Role,
+            as: 'role',
+            required: false,
+            attributes: ['id', 'roleName','level']
+          } ]
         
       }
     );
@@ -60,7 +71,7 @@ export async function getUser(req, res) {
 }
 
 export async function createUser(req, res) {
-  const { name, lastname, email, password, role, positionId } = req.body;
+  const { name, lastname, email, password, access, roleId, positionId } = req.body;
   try {
     let newUser = await User.create(
       {
@@ -68,11 +79,12 @@ export async function createUser(req, res) {
         lastname,
         email,
         password,
-        role,
+        access,
+        roleId,
         positionId,
       },
       {
-        fields: ["name", "lastname", "email", "password", "role", "positionId"],
+        fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId"],
       }
     );
     if (newUser) {
@@ -94,7 +106,7 @@ export async function updateUser(req, res) {
   const { id } = req.params;
   console.log(req.params);
 
-  const { name, lastname, email, password, role, positionId } = req.body;
+  const { name, lastname, email, password, access, roleId, positionId } = req.body;
 
   try {
     const users = await User.findAll({
@@ -104,7 +116,8 @@ export async function updateUser(req, res) {
         "lastname",
         "email",
         "password",
-        "role",
+        "access",
+        "roleId",
         "positionId",
       ],
       where: {
@@ -121,7 +134,8 @@ export async function updateUser(req, res) {
           lastname,
           email,
           password,
-          role,
+          access,
+          roleId,
           positionId,
         });
       });
@@ -161,7 +175,7 @@ export async function deleteUser(req, res) {
 }
 
 export async function register(req, res){
-  const { name, lastname, email, password, role, positionId } = req.body;
+  const { name, lastname, email, password, access, roleId, positionId } = req.body;
   var hash = bcrypt.hashSync(password);
   try {
     let newUser = await User.create(
@@ -170,11 +184,12 @@ export async function register(req, res){
         lastname,
         email,
         password: hash,
-        role,
+        access,
+        roleId,
         positionId,
       },
       {
-        fields: ["name", "lastname", "email", "password", "role", "positionId"],
+        fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId"],
       }
     );
     if (newUser) {

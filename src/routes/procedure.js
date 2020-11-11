@@ -5,7 +5,7 @@ import {getProcedures, getProcedure, createProcedure, updateProcedure, deletePro
 
 router.get('/',getProcedures);
 router.get('/:id',getProcedure);
-router.get('/byposition/:positionId', getProcedureStatus);
+router.get('/byrole/:roleId', getProcedureStatus);
 router.get('/byorder/:order',getProcedureByOrder);
 router.get('/bycatorder/:category/:order', getProcedureByCategoryOrder)
 router.post('/',createProcedure);

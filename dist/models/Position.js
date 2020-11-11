@@ -11,8 +11,6 @@ var _database = require("../database/database");
 
 var _User = _interopRequireDefault(require("./User"));
 
-var _Procedure = _interopRequireDefault(require("./Procedure"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // import Office from './Office';
@@ -42,16 +40,6 @@ Position.hasMany(_User["default"], {
 });
 
 _User["default"].belongsTo(Position, {
-  foreignKey: 'positionId',
-  sourceKey: 'id'
-});
-
-Position.hasMany(_Procedure["default"], {
-  foreignKey: 'positionId',
-  sourceKey: 'id'
-});
-
-_Procedure["default"].belongsTo(Position, {
   foreignKey: 'positionId',
   sourceKey: 'id'
 });

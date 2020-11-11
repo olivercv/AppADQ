@@ -1,13 +1,16 @@
 import Sequelize from 'sequelize';
 import { sequelize } from '../database/database';
-// import Status from './Status';
+import Role from './Role';
 const Procedure = sequelize.define('procedure',{
     id: {
         type: Sequelize.UUID,
         primaryKey: true
     },
-    positionId: {
+    roleId: {
         type: Sequelize.UUID
+    },
+    internal: {
+        type: Sequelize.BOOLEAN
     },
     procedureName: {
         type: Sequelize.TEXT

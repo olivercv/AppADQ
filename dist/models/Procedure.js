@@ -9,16 +9,20 @@ var _sequelize = _interopRequireDefault(require("sequelize"));
 
 var _database = require("../database/database");
 
+var _Role = _interopRequireDefault(require("./Role"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-// import Status from './Status';
 var Procedure = _database.sequelize.define('procedure', {
   id: {
     type: _sequelize["default"].UUID,
     primaryKey: true
   },
-  positionId: {
+  roleId: {
     type: _sequelize["default"].UUID
+  },
+  internal: {
+    type: _sequelize["default"].BOOLEAN
   },
   procedureName: {
     type: _sequelize["default"].TEXT

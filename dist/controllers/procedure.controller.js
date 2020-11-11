@@ -16,6 +16,8 @@ var _Procedure = _interopRequireDefault(require("../models/Procedure"));
 
 var _Status = _interopRequireDefault(require("../models/Status"));
 
+var _Role = _interopRequireDefault(require("../models/Role"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -35,10 +37,17 @@ function _getProcedures() {
           case 0:
             _context.prev = 0;
             _context.next = 3;
-            return _Procedure["default"].findAll();
+            return _Procedure["default"].findAll({
+              include: [{
+                model: _Role["default"],
+                as: 'role'
+              }],
+              order: [['order']]
+            });
 
           case 3:
             procedures = _context.sent;
+            // console.log('resultados procedimientos ',res);
             res.json({
               procedures: procedures
             });
@@ -235,17 +244,17 @@ function getProcedureStatus(_x9, _x10) {
 
 function _getProcedureStatus() {
   _getProcedureStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
-    var positionId, procedure;
+    var roleId, procedure;
     return regeneratorRuntime.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            positionId = req.params.positionId;
+            roleId = req.params.roleId;
             _context5.prev = 1;
             _context5.next = 4;
             return _Procedure["default"].findAll({
               where: {
-                positionId: positionId
+                roleId: roleId
               },
               include: [{
                 model: _Status["default"],
@@ -255,7 +264,7 @@ function _getProcedureStatus() {
                   current: true
                 },
                 // Pass in the Product attributes that you want to retrieve
-                attributes: ['id', 'procedureId', 'userId', 'status', 'dateAt', 'current', 'codeRequest', 'formId', 'name']
+                attributes: ['id', 'roleId', 'userId', 'status', 'dateAt', 'current', 'codeRequest', 'formId', 'name']
               }]
             });
 
@@ -292,23 +301,24 @@ function createProcedure(_x11, _x12) {
 
 function _createProcedure() {
   _createProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
-    var _req$body, positionId, procedureName, order, category, formName, newProcedure;
+    var _req$body, roleId, internal, procedureName, order, category, formName, newProcedure;
 
     return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            _req$body = req.body, positionId = _req$body.positionId, procedureName = _req$body.procedureName, order = _req$body.order, category = _req$body.category, formName = _req$body.formName;
+            _req$body = req.body, roleId = _req$body.roleId, internal = _req$body.internal, procedureName = _req$body.procedureName, order = _req$body.order, category = _req$body.category, formName = _req$body.formName;
             _context6.prev = 1;
             _context6.next = 4;
             return _Procedure["default"].create({
-              positionId: positionId,
+              roleId: roleId,
+              internal: internal,
               procedureName: procedureName,
               order: order,
               category: category,
               formName: formName
             }, {
-              fields: ["positionId", "procedureName", "order", "category", "formName"]
+              fields: ["roleId", "internal", "procedureName", "order", "category", "formName"]
             });
 
           case 4:
@@ -353,18 +363,18 @@ function updateProcedure(_x13, _x14) {
 
 function _updateProcedure() {
   _updateProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(req, res) {
-    var id, _req$body2, positionId, procedureName, order, category, formName, procedures;
+    var id, _req$body2, roleId, internal, procedureName, order, category, formName, procedures;
 
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
             id = req.params.id;
-            _req$body2 = req.body, positionId = _req$body2.positionId, procedureName = _req$body2.procedureName, order = _req$body2.order, category = _req$body2.category, formName = _req$body2.formName;
+            _req$body2 = req.body, roleId = _req$body2.roleId, internal = _req$body2.internal, procedureName = _req$body2.procedureName, order = _req$body2.order, category = _req$body2.category, formName = _req$body2.formName;
             _context8.prev = 2;
             _context8.next = 5;
             return _Procedure["default"].findAll({
-              attributes: ['id', 'positionId', 'procedureName', 'order', 'category', 'formName'],
+              attributes: ['id', 'roleId', 'internal', 'procedureName', 'order', 'category', 'formName'],
               where: {
                 id: id
               }
@@ -382,7 +392,8 @@ function _updateProcedure() {
                         case 0:
                           _context7.next = 2;
                           return procedure.update({
-                            positionId: positionId,
+                            roleId: roleId,
+                            internal: internal,
                             procedureName: procedureName,
                             order: order,
                             category: category,

@@ -244,7 +244,7 @@ function _getCurrentStatus() {
                 model: _Procedure["default"],
                 as: 'procedure',
                 required: false,
-                attributes: ['id', 'positionId', 'procedureName', 'order']
+                attributes: ['id', 'roleId', 'internal', 'procedureName', 'order']
               }, {
                 model: _AcquisitionRequest["default"],
                 as: 'acquisitionRequest'
@@ -307,9 +307,9 @@ function _getStatusPositionId() {
               include: [{
                 model: _Procedure["default"],
                 where: _defineProperty({}, Op.or, [{
-                  positionId: id
+                  roleId: id
                 }, {
-                  positionId: null
+                  roleId: null
                 }])
               }, {
                 model: _AcquisitionRequest["default"],
