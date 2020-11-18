@@ -19,5 +19,6 @@ router.put('/:id', _authenticated.ensureAuth, _user.updateUser);
 router["delete"]('/:id', _authenticated.ensureAuth, _user.deleteUser);
 router.post('/signup', _user.register);
 router.post('/signin', _user.signin);
+router.put('/password/:id', _authenticated.ensureAuth, _user.updatePassword);
 var _default = router;
 exports["default"] = _default;

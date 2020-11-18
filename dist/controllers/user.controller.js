@@ -10,6 +10,7 @@ exports.updateUser = updateUser;
 exports.deleteUser = deleteUser;
 exports.register = register;
 exports.signin = signin;
+exports.updatePassword = updatePassword;
 
 var _User = _interopRequireDefault(require("../models/User"));
 
@@ -265,7 +266,7 @@ function _updateUser() {
                   }, _callee4);
                 }));
 
-                return function (_x15) {
+                return function (_x17) {
                   return _ref.apply(this, arguments);
                 };
               }());
@@ -460,4 +461,80 @@ function _signin() {
     }, _callee8);
   }));
   return _signin.apply(this, arguments);
+}
+
+function updatePassword(_x15, _x16) {
+  return _updatePassword.apply(this, arguments);
+}
+
+function _updatePassword() {
+  _updatePassword = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(req, res) {
+    var id, password, hash, users;
+    return regeneratorRuntime.wrap(function _callee10$(_context10) {
+      while (1) {
+        switch (_context10.prev = _context10.next) {
+          case 0:
+            id = req.params.id;
+            password = req.body.password;
+            hash = _bcryptNode["default"].hashSync(password);
+            _context10.prev = 3;
+            _context10.next = 6;
+            return _User["default"].findAll({
+              attributes: ["id", "name", "lastname", "email", "password", "access", "roleId", "positionId"],
+              where: {
+                id: id
+              }
+            });
+
+          case 6:
+            users = _context10.sent;
+
+            if (users.length > 0) {
+              users.forEach( /*#__PURE__*/function () {
+                var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(user) {
+                  return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                    while (1) {
+                      switch (_context9.prev = _context9.next) {
+                        case 0:
+                          _context9.next = 2;
+                          return user.update({
+                            password: hash
+                          });
+
+                        case 2:
+                        case "end":
+                          return _context9.stop();
+                      }
+                    }
+                  }, _callee9);
+                }));
+
+                return function (_x18) {
+                  return _ref2.apply(this, arguments);
+                };
+              }());
+            }
+
+            return _context10.abrupt("return", res.json({
+              message: "User Updated Succesfully",
+              data: users
+            }));
+
+          case 11:
+            _context10.prev = 11;
+            _context10.t0 = _context10["catch"](3);
+            res.status(500).json({
+              message: "Something goes wrong",
+              data: {}
+            });
+            console.log(_context10.t0);
+
+          case 15:
+          case "end":
+            return _context10.stop();
+        }
+      }
+    }, _callee10, null, [[3, 11]]);
+  }));
+  return _updatePassword.apply(this, arguments);
 }

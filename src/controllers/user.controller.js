@@ -242,7 +242,50 @@ export async function signin(req, res){
       res.status(500).send('error', err);
     }
   });
- 
+  
+  
     
+}
+
+export async function updatePassword(req, res) {
+  const { id } = req.params;
+  const { password } = req.body;
+  var hash = bcrypt.hashSync(password);
+
+  try {
+    const users = await User.findAll({
+      attributes: [
+        "id",
+        "name",
+        "lastname",
+        "email",
+        "password",
+        "access",
+        "roleId",
+        "positionId",
+      ],
+      where: {
+        id,
+      },
+    });
+    if (users.length > 0) {
+      users.forEach(async (user) => {
+        await user.update({
+          password: hash,
+        });
+      });
+    }
+
+    return res.json({
+      message: "User Updated Succesfully",
+      data: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Something goes wrong",
+      data: {},
+    });
+    console.log(error);
+  }
 }
 
