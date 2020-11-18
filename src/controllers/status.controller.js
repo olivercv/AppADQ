@@ -69,6 +69,22 @@ export async function getStatusByRequestForm(req, res) {
   }
 }
 
+export async function getStatusByFormId(req, res) {
+  const { formId } = req.params;
+  try {
+    const statuss = await Status.findAll({
+      where: {
+        formId
+      }
+    });
+    res.json({
+      status: statuss,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getStatusByRequestAndProcedure(req, res) {
   const { codeRequest, procedureId } = req.params;
   try {

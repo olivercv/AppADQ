@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.getStatuss = getStatuss;
 exports.getStatusByRequest = getStatusByRequest;
 exports.getStatusByRequestForm = getStatusByRequestForm;
+exports.getStatusByFormId = getStatusByFormId;
 exports.getStatusByRequestAndProcedure = getStatusByRequestAndProcedure;
 exports.getCurrentStatus = getCurrentStatus;
 exports.getStatusPositionId = getStatusPositionId;
@@ -173,25 +174,23 @@ function _getStatusByRequestForm() {
   return _getStatusByRequestForm.apply(this, arguments);
 }
 
-function getStatusByRequestAndProcedure(_x7, _x8) {
-  return _getStatusByRequestAndProcedure.apply(this, arguments);
+function getStatusByFormId(_x7, _x8) {
+  return _getStatusByFormId.apply(this, arguments);
 }
 
-function _getStatusByRequestAndProcedure() {
-  _getStatusByRequestAndProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var _req$params, codeRequest, procedureId, statuss;
-
+function _getStatusByFormId() {
+  _getStatusByFormId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
+    var formId, statuss;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _req$params = req.params, codeRequest = _req$params.codeRequest, procedureId = _req$params.procedureId;
+            formId = req.params.formId;
             _context4.prev = 1;
             _context4.next = 4;
             return _Status["default"].findAll({
               where: {
-                codeRequest: codeRequest,
-                procedureId: procedureId
+                formId: formId
               }
             });
 
@@ -215,26 +214,71 @@ function _getStatusByRequestAndProcedure() {
       }
     }, _callee4, null, [[1, 8]]);
   }));
+  return _getStatusByFormId.apply(this, arguments);
+}
+
+function getStatusByRequestAndProcedure(_x9, _x10) {
   return _getStatusByRequestAndProcedure.apply(this, arguments);
 }
 
-function getCurrentStatus(_x9, _x10) {
+function _getStatusByRequestAndProcedure() {
+  _getStatusByRequestAndProcedure = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
+    var _req$params, codeRequest, procedureId, statuss;
+
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _req$params = req.params, codeRequest = _req$params.codeRequest, procedureId = _req$params.procedureId;
+            _context5.prev = 1;
+            _context5.next = 4;
+            return _Status["default"].findAll({
+              where: {
+                codeRequest: codeRequest,
+                procedureId: procedureId
+              }
+            });
+
+          case 4:
+            statuss = _context5.sent;
+            res.json({
+              status: statuss
+            });
+            _context5.next = 11;
+            break;
+
+          case 8:
+            _context5.prev = 8;
+            _context5.t0 = _context5["catch"](1);
+            console.log(_context5.t0);
+
+          case 11:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, null, [[1, 8]]);
+  }));
+  return _getStatusByRequestAndProcedure.apply(this, arguments);
+}
+
+function getCurrentStatus(_x11, _x12) {
   return _getCurrentStatus.apply(this, arguments);
 } // status por positon Id
 
 
 function _getCurrentStatus() {
-  _getCurrentStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
+  _getCurrentStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
     var codeRequest, current, status;
-    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
       while (1) {
-        switch (_context5.prev = _context5.next) {
+        switch (_context6.prev = _context6.next) {
           case 0:
             codeRequest = req.params.codeRequest; // console.log('paramtros', req.params);
 
             current = true;
-            _context5.prev = 2;
-            _context5.next = 5;
+            _context6.prev = 2;
+            _context6.next = 5;
             return _Status["default"].findOne({
               where: {
                 codeRequest: codeRequest,
@@ -252,48 +296,48 @@ function _getCurrentStatus() {
             });
 
           case 5:
-            status = _context5.sent;
+            status = _context6.sent;
             res.json({
               status: status
             });
-            _context5.next = 13;
+            _context6.next = 13;
             break;
 
           case 9:
-            _context5.prev = 9;
-            _context5.t0 = _context5["catch"](2);
+            _context6.prev = 9;
+            _context6.t0 = _context6["catch"](2);
             res.status(500).json({
               message: "Something goes wrong",
               data: {}
             });
-            console.log(_context5.t0);
+            console.log(_context6.t0);
 
           case 13:
           case "end":
-            return _context5.stop();
+            return _context6.stop();
         }
       }
-    }, _callee5, null, [[2, 9]]);
+    }, _callee6, null, [[2, 9]]);
   }));
   return _getCurrentStatus.apply(this, arguments);
 }
 
-function getStatusPositionId(_x11, _x12) {
+function getStatusPositionId(_x13, _x14) {
   return _getStatusPositionId.apply(this, arguments);
 } // status por userId
 
 
 function _getStatusPositionId() {
-  _getStatusPositionId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(req, res) {
+  _getStatusPositionId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(req, res) {
     var _req$params2, id, procedureId, userId, status;
 
-    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+    return regeneratorRuntime.wrap(function _callee7$(_context7) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
             _req$params2 = req.params, id = _req$params2.id, procedureId = _req$params2.procedureId, userId = _req$params2.userId;
-            _context6.prev = 1;
-            _context6.next = 4;
+            _context7.prev = 1;
+            _context7.next = 4;
             return _Status["default"].findAll({
               where: _defineProperty({}, Op.or, [{
                 userId: userId
@@ -318,48 +362,48 @@ function _getStatusPositionId() {
             });
 
           case 4:
-            status = _context6.sent;
+            status = _context7.sent;
             res.json({
               status: status
             });
-            _context6.next = 12;
+            _context7.next = 12;
             break;
 
           case 8:
-            _context6.prev = 8;
-            _context6.t0 = _context6["catch"](1);
+            _context7.prev = 8;
+            _context7.t0 = _context7["catch"](1);
             res.status(500).json({
-              message: "Something goes wrong" + _context6.t0,
+              message: "Something goes wrong" + _context7.t0,
               data: {}
             });
-            console.log(_context6.t0);
+            console.log(_context7.t0);
 
           case 12:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
       }
-    }, _callee6, null, [[1, 8]]);
+    }, _callee7, null, [[1, 8]]);
   }));
   return _getStatusPositionId.apply(this, arguments);
 }
 
-function getStatusByUserId(_x13, _x14) {
+function getStatusByUserId(_x15, _x16) {
   return _getStatusByUserId.apply(this, arguments);
 }
 
 function _getStatusByUserId() {
-  _getStatusByUserId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(req, res) {
+  _getStatusByUserId = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(req, res) {
     var _req$body, userId, startDate, endDate, status;
 
-    return regeneratorRuntime.wrap(function _callee7$(_context7) {
+    return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
             _req$body = req.body, userId = _req$body.userId, startDate = _req$body.startDate, endDate = _req$body.endDate;
             console.log('ingresó ', req.body);
-            _context7.prev = 2;
-            _context7.next = 5;
+            _context8.prev = 2;
+            _context8.next = 5;
             return _Status["default"].findAll({
               where: {
                 userId: userId,
@@ -379,46 +423,46 @@ function _getStatusByUserId() {
             });
 
           case 5:
-            status = _context7.sent;
+            status = _context8.sent;
             res.json({
               status: status
             });
-            _context7.next = 13;
+            _context8.next = 13;
             break;
 
           case 9:
-            _context7.prev = 9;
-            _context7.t0 = _context7["catch"](2);
+            _context8.prev = 9;
+            _context8.t0 = _context8["catch"](2);
             res.status(500).json({
-              message: "Something goes wrong" + _context7.t0,
+              message: "Something goes wrong" + _context8.t0,
               data: {}
             });
-            console.log(_context7.t0);
+            console.log(_context8.t0);
 
           case 13:
           case "end":
-            return _context7.stop();
+            return _context8.stop();
         }
       }
-    }, _callee7, null, [[2, 9]]);
+    }, _callee8, null, [[2, 9]]);
   }));
   return _getStatusByUserId.apply(this, arguments);
 }
 
-function getStatus(_x15, _x16) {
+function getStatus(_x17, _x18) {
   return _getStatus.apply(this, arguments);
 }
 
 function _getStatus() {
-  _getStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(req, res) {
+  _getStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(req, res) {
     var id, status;
-    return regeneratorRuntime.wrap(function _callee8$(_context8) {
+    return regeneratorRuntime.wrap(function _callee9$(_context9) {
       while (1) {
-        switch (_context8.prev = _context8.next) {
+        switch (_context9.prev = _context9.next) {
           case 0:
             id = req.params.id;
-            _context8.prev = 1;
-            _context8.next = 4;
+            _context9.prev = 1;
+            _context9.next = 4;
             return _Status["default"].findOne({
               where: {
                 id: id
@@ -433,47 +477,47 @@ function _getStatus() {
             });
 
           case 4:
-            status = _context8.sent;
+            status = _context9.sent;
             res.json({
               status: status
             });
-            _context8.next = 12;
+            _context9.next = 12;
             break;
 
           case 8:
-            _context8.prev = 8;
-            _context8.t0 = _context8["catch"](1);
+            _context9.prev = 8;
+            _context9.t0 = _context9["catch"](1);
             res.status(500).json({
               message: "Something goes wrong",
               data: {}
             });
-            console.log(_context8.t0);
+            console.log(_context9.t0);
 
           case 12:
           case "end":
-            return _context8.stop();
+            return _context9.stop();
         }
       }
-    }, _callee8, null, [[1, 8]]);
+    }, _callee9, null, [[1, 8]]);
   }));
   return _getStatus.apply(this, arguments);
 }
 
-function createStatus(_x17, _x18) {
+function createStatus(_x19, _x20) {
   return _createStatus.apply(this, arguments);
 }
 
 function _createStatus() {
-  _createStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(req, res) {
+  _createStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(req, res) {
     var _req$body2, procedureId, userId, formId, status, dateAt, current, codeRequest, name, newStatus;
 
-    return regeneratorRuntime.wrap(function _callee9$(_context9) {
+    return regeneratorRuntime.wrap(function _callee10$(_context10) {
       while (1) {
-        switch (_context9.prev = _context9.next) {
+        switch (_context10.prev = _context10.next) {
           case 0:
             _req$body2 = req.body, procedureId = _req$body2.procedureId, userId = _req$body2.userId, formId = _req$body2.formId, status = _req$body2.status, dateAt = _req$body2.dateAt, current = _req$body2.current, codeRequest = _req$body2.codeRequest, name = _req$body2.name;
-            _context9.prev = 1;
-            _context9.next = 4;
+            _context10.prev = 1;
+            _context10.next = 4;
             return _Status["default"].create({
               procedureId: procedureId,
               userId: userId,
@@ -488,57 +532,57 @@ function _createStatus() {
             });
 
           case 4:
-            newStatus = _context9.sent;
+            newStatus = _context10.sent;
 
             if (!newStatus) {
-              _context9.next = 7;
+              _context10.next = 7;
               break;
             }
 
-            return _context9.abrupt("return", res.json({
+            return _context10.abrupt("return", res.json({
               message: "Status Created",
               status: newStatus
             }));
 
           case 7:
-            _context9.next = 13;
+            _context10.next = 13;
             break;
 
           case 9:
-            _context9.prev = 9;
-            _context9.t0 = _context9["catch"](1);
+            _context10.prev = 9;
+            _context10.t0 = _context10["catch"](1);
             res.status(500).json({
               message: "Something goes wrong",
               data: {}
             });
-            console.log(_context9.t0);
+            console.log(_context10.t0);
 
           case 13:
           case "end":
-            return _context9.stop();
+            return _context10.stop();
         }
       }
-    }, _callee9, null, [[1, 9]]);
+    }, _callee10, null, [[1, 9]]);
   }));
   return _createStatus.apply(this, arguments);
 }
 
-function updateStatus(_x19, _x20) {
+function updateStatus(_x21, _x22) {
   return _updateStatus.apply(this, arguments);
 }
 
 function _updateStatus() {
-  _updateStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(req, res) {
+  _updateStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(req, res) {
     var id, _req$body3, procedureId, userId, formId, status, dateAt, current, codeRequest, name, statuss;
 
-    return regeneratorRuntime.wrap(function _callee11$(_context11) {
+    return regeneratorRuntime.wrap(function _callee12$(_context12) {
       while (1) {
-        switch (_context11.prev = _context11.next) {
+        switch (_context12.prev = _context12.next) {
           case 0:
             id = req.params.id;
             _req$body3 = req.body, procedureId = _req$body3.procedureId, userId = _req$body3.userId, formId = _req$body3.formId, status = _req$body3.status, dateAt = _req$body3.dateAt, current = _req$body3.current, codeRequest = _req$body3.codeRequest, name = _req$body3.name;
-            _context11.prev = 2;
-            _context11.next = 5;
+            _context12.prev = 2;
+            _context12.next = 5;
             return _Status["default"].findAll({
               attributes: ['id', 'procedureId', 'userId', 'formId', 'status', 'dateAt', 'current', 'codeRequest', 'name'],
               where: {
@@ -547,16 +591,16 @@ function _updateStatus() {
             });
 
           case 5:
-            statuss = _context11.sent;
+            statuss = _context12.sent;
 
             if (statuss.length > 0) {
               statuss.forEach( /*#__PURE__*/function () {
-                var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(status1) {
-                  return regeneratorRuntime.wrap(function _callee10$(_context10) {
+                var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(status1) {
+                  return regeneratorRuntime.wrap(function _callee11$(_context11) {
                     while (1) {
-                      switch (_context10.prev = _context10.next) {
+                      switch (_context11.prev = _context11.next) {
                         case 0:
-                          _context10.next = 2;
+                          _context11.next = 2;
                           return status1.update({
                             procedureId: procedureId,
                             userId: userId,
@@ -570,56 +614,56 @@ function _updateStatus() {
 
                         case 2:
                         case "end":
-                          return _context10.stop();
+                          return _context11.stop();
                       }
                     }
-                  }, _callee10);
+                  }, _callee11);
                 }));
 
-                return function (_x23) {
+                return function (_x25) {
                   return _ref.apply(this, arguments);
                 };
               }());
             }
 
-            return _context11.abrupt("return", res.json({
+            return _context12.abrupt("return", res.json({
               message: "Status Updated Succesfully",
               status: statuss[0]
             }));
 
           case 10:
-            _context11.prev = 10;
-            _context11.t0 = _context11["catch"](2);
+            _context12.prev = 10;
+            _context12.t0 = _context12["catch"](2);
             res.status(500).json({
               message: "Something goes wrong",
               data: {}
             });
-            console.log(_context11.t0);
+            console.log(_context12.t0);
 
           case 14:
           case "end":
-            return _context11.stop();
+            return _context12.stop();
         }
       }
-    }, _callee11, null, [[2, 10]]);
+    }, _callee12, null, [[2, 10]]);
   }));
   return _updateStatus.apply(this, arguments);
 }
 
-function deleteStatus(_x21, _x22) {
+function deleteStatus(_x23, _x24) {
   return _deleteStatus.apply(this, arguments);
 }
 
 function _deleteStatus() {
-  _deleteStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(req, res) {
+  _deleteStatus = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(req, res) {
     var id, deleteRowCount;
-    return regeneratorRuntime.wrap(function _callee12$(_context12) {
+    return regeneratorRuntime.wrap(function _callee13$(_context13) {
       while (1) {
-        switch (_context12.prev = _context12.next) {
+        switch (_context13.prev = _context13.next) {
           case 0:
             id = req.params.id;
-            _context12.prev = 1;
-            _context12.next = 4;
+            _context13.prev = 1;
+            _context13.next = 4;
             return _Status["default"].destroy({
               where: {
                 id: id
@@ -627,28 +671,28 @@ function _deleteStatus() {
             });
 
           case 4:
-            deleteRowCount = _context12.sent;
+            deleteRowCount = _context13.sent;
             res.json({
               message: "Status Deleted Succesfully",
               count: deleteRowCount
             });
-            _context12.next = 12;
+            _context13.next = 12;
             break;
 
           case 8:
-            _context12.prev = 8;
-            _context12.t0 = _context12["catch"](1);
+            _context13.prev = 8;
+            _context13.t0 = _context13["catch"](1);
             res.status(500).json({
               message: "Something goes wrong"
             });
-            console.log(_context12.t0);
+            console.log(_context13.t0);
 
           case 12:
           case "end":
-            return _context12.stop();
+            return _context13.stop();
         }
       }
-    }, _callee12, null, [[1, 8]]);
+    }, _callee13, null, [[1, 8]]);
   }));
   return _deleteStatus.apply(this, arguments);
 }

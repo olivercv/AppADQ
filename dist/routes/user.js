@@ -12,7 +12,7 @@ var _authenticated = require("../middlewares/authenticated");
 var _user = require("../controllers/user.controller");
 
 var router = (0, _express.Router)();
-router.get('/', _authenticated.ensureAuth, _user.getUsers);
+router.get('/', _user.getUsers);
 router.get('/:id', _user.getUser);
 router.post('/', _user.createUser);
 router.put('/:id', _authenticated.ensureAuth, _user.updateUser);

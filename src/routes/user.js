@@ -4,7 +4,7 @@ const router = Router();
 import { ensureAuth } from '../middlewares/authenticated'
 import {getUsers, getUser, createUser, updateUser, deleteUser, register, signin, updatePassword} from '../controllers/user.controller';
 
-router.get('/', ensureAuth, getUsers);
+router.get('/', getUsers);
 router.get('/:id',getUser);
 router.post('/',createUser);
 router.put('/:id', ensureAuth, updateUser);

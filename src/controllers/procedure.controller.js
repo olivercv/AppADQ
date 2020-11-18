@@ -39,6 +39,9 @@ export async function getProcedure(req, res) {
     console.log(error);
   }
 }
+
+
+
 // export async function getProcedureStatus(req, res) {
 //   const { id } = req.params;
 //   try {
