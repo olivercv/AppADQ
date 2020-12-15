@@ -46,7 +46,7 @@ export async function getPEP(req, res) {
         as: 'proposalProviders',
         required: false,
       // Pass in the Document attributes that you want to retrieve
-        attributes: ['id', 'name','economicProposal','date','formId']
+        attributes: ['id', 'name','economicProposal','date','formId','warranty']
       }]
     });
     res.json({

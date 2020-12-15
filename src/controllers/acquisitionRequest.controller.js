@@ -43,18 +43,6 @@ export async function getADQRequest(req, res) {
         id,
       },
       include: [{
-        model: Product,
-        as: 'products',
-        required: false,
-      // Pass in the Product attributes that you want to retrieve
-        attributes: ['id', 'name','description','quantity','price']
-      },{
-      model: AdmCondition,
-        as: 'admConditions',
-        required: false,
-      // Pass in the Product attributes that you want to retrieve
-        attributes: ['id', 'priority','type','warranty','deliveryTime','placeDelivery','posibleProviders']
-      },{
         model: Document,
         as: 'documents',
         required: false,
@@ -85,14 +73,11 @@ export async function createAcquisitionRequest(req, res) {
     requestDate,
     nPac,
     place,
-    question1,
-    question2,
-    question3,
     coin,
     title,
     category,
     selectionMethod,
-    descriptionTitle,
+    warranty,
   } = req.body;
   try {
     let newAcquisitionRequest = await AcquisitionRequest.create(
@@ -104,14 +89,11 @@ export async function createAcquisitionRequest(req, res) {
         requestDate,
         nPac,
         place,
-        question1,
-        question2,
-        question3,
         coin,
         title,
         category,
         selectionMethod,
-        descriptionTitle,
+        warranty,
       },
       {
         fields: [
@@ -122,14 +104,11 @@ export async function createAcquisitionRequest(req, res) {
           "requestDate",
           "nPac",
           "place",
-          "question1",
-          "question2",
-          "question3",
           "coin",
           "title",
           "category",
           "selectionMethod",
-          "descriptionTitle",
+          "warranty",
         ],
       }
     );
@@ -158,14 +137,11 @@ export async function updateAcquisitionRequest(req, res) {
     requestDate,
     nPac,
     place,
-    question1,
-    question2,
-    question3,
     coin,
     title,
     category,
     selectionMethod,
-    descriptionTitle,
+    warranty,
   } = req.body;
 
   try {
@@ -179,14 +155,11 @@ export async function updateAcquisitionRequest(req, res) {
         'requestDate',
         'nPac',
         'place',
-        'question1',
-        'question2',
-        'question3',
         'coin',
         'title',
         'category',
         'selectionMethod',
-        'descriptionTitle',
+        'warranty',
       ],
       where: {
         id,
@@ -202,14 +175,11 @@ export async function updateAcquisitionRequest(req, res) {
           requestDate,
           nPac,
           place,
-          question1,
-          question2,
-          question3,
           coin,
           title,
           category,
           selectionMethod,
-          descriptionTitle,
+          warranty,
         });
       })
     }

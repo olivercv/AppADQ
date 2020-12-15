@@ -1,9 +1,13 @@
 import User from "../models/User";
 import bcrypt from 'bcrypt-node';
 import { createToken } from  '../services/jwt';
+import { resetToken } from  '../services/jwt';
+import jwt from 'jsonwebtoken';
+import { cfg } from '../config/config'
 import Position from "../models/Position"
 import Office from "../models/Office"
 import Role from "../models/Role";
+const nodemailer = require("nodemailer");
 export async function getUsers(req, res) {
   try {
     const users = await User.findAll({
@@ -71,7 +75,7 @@ export async function getUser(req, res) {
 }
 
 export async function createUser(req, res) {
-  const { name, lastname, email, password, access, roleId, positionId } = req.body;
+  const { name, lastname, email, password, access, roleId, positionId, resetLink } = req.body;
   try {
     let newUser = await User.create(
       {
@@ -82,9 +86,10 @@ export async function createUser(req, res) {
         access,
         roleId,
         positionId,
+        resetLink
       },
       {
-        fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId"],
+        fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId","resetLink"],
       }
     );
     if (newUser) {
@@ -106,7 +111,7 @@ export async function updateUser(req, res) {
   const { id } = req.params;
   console.log(req.params);
 
-  const { name, lastname, email, password, access, roleId, positionId } = req.body;
+  const { name, lastname, email, password, access, roleId, positionId, resetLink } = req.body;
 
   try {
     const users = await User.findAll({
@@ -119,6 +124,7 @@ export async function updateUser(req, res) {
         "access",
         "roleId",
         "positionId",
+        "resetLink",
       ],
       where: {
         id,
@@ -137,6 +143,7 @@ export async function updateUser(req, res) {
           access,
           roleId,
           positionId,
+          resetLink,
         });
       });
     }
@@ -187,9 +194,10 @@ export async function register(req, res){
         access,
         roleId,
         positionId,
+        resetLink,
       },
       {
-        fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId"],
+        fields: ["name", "lastname", "email", "password", "access", "roleId", "positionId","resetLink"],
       }
     );
     if (newUser) {
@@ -263,6 +271,7 @@ export async function updatePassword(req, res) {
         "access",
         "roleId",
         "positionId",
+        "resetLink",
       ],
       where: {
         id,
@@ -289,3 +298,123 @@ export async function updatePassword(req, res) {
   }
 }
 
+
+ export async function resetEmail(req, res) {
+  const {email} = req.params;
+  console.log(email);
+  try {
+    const user = await User.findOne(
+      {
+        where: {
+          email
+        },
+      }
+    );
+    console.log(user);
+    const token = resetToken(user);
+    user.update({resetLink:token});
+    sendEmail(email,token,res);
+    return res.json({
+      message: "User Updated Succesfully",
+      data: user,
+    });
+    
+  } catch (error) {
+    res.status(500).json({
+      message: "Something goes wrong",
+      error,
+      data: {},
+    });
+    console.error(error);
+  }
+  
+} 
+
+async function sendEmail(email,token, res){
+
+  //let testAccount = await nodemailer.createTestAccount();
+
+  var transporter = nodemailer.createTransport({
+   /*  host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: "velva.stokes62@ethereal.email", // generated ethereal user
+      pass: "Y5bApMGaD1nSDMzzHR", // generated ethereal password
+    }, */
+
+    /* tls:{
+      rejectUnauthorized: false
+    } */
+    service: "Yahoo",
+    secure: true,
+    auth: {
+      user: "carlos05_ale@yahoo.es",
+      pass: "ykzsibrryadkyekd"  
+    },
+  });
+
+   // send mail with defined transport object
+   var mailOptions = {
+    from: "carlos05_ale@yahoo.es", // sender address
+    to: email, // list of receivers
+    subject: "Hello ✔", // Subject line
+    text: "Este es un mensaje de pprueba para mandar emails?", // plain text body
+    html: `<b>esta funcionando esta prueba?</b><h1>${token}</h1>`, // html body
+  };
+
+  transporter.sendMail(mailOptions, (error, info)=>{
+    if(error){
+      return res.status(500).json(
+        {error: error});
+    }else{
+      console.log('mensaje enviado');
+      return res.status(200).json({
+        message: "Mensaje enviado",
+        
+      });
+    }
+  })
+
+}
+
+export async function resetPassword(req, res) {
+  const { token } = req.params;
+  const { password } = req.body;
+  
+  if(token){
+    jwt.verify(token, cfg.key,async function(error, decodedData){
+      if(error){
+        return res.status(401).json({
+          message: 'Solicitud desautorizada'
+      });
+      }      
+        try {
+          const user = await User.findOne(
+            {
+              where: {
+                resetLink:token
+              },
+            }
+          );
+          console.log(user);
+          var hash = bcrypt.hashSync(password);
+          await user.update({
+                    password: hash,
+          });
+          return res.json({
+            message: "User Updated Succesfully",
+            data: user,
+          });
+        } catch (error) {
+          
+          res.status(500).json({
+            message: "Something goes wrong",
+            error,
+            data: {},
+          });
+        }
+      })
+  }
+
+}

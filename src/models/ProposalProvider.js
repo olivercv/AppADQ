@@ -20,6 +20,9 @@ const ProposalProvider = sequelize.define('proposalProvider',{
         type: Sequelize.UUID
     
     },
+    warranty: {
+        type: Sequelize.TEXT
+    },
 
 },{
     timestamps: false

@@ -26,7 +26,10 @@ const User = sequelize.define('user',{
     },
     positionId: {
         type: Sequelize.UUID
-    }
+    },
+    resetLink: {
+        type: Sequelize.TEXT
+    },
 
 },{
     timestamps: false

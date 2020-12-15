@@ -31,15 +31,6 @@ const AcquisitionRequest = sequelize.define('acquisitionRequest',{
     place: {
         type: Sequelize.TEXT
     },
-    question1: {
-        type: Sequelize.TEXT
-    },
-    question2: {
-        type: Sequelize.TEXT
-    },
-    question3: {
-        type: Sequelize.TEXT
-    },
     coin: {
         type: Sequelize.TEXT
     },
@@ -52,7 +43,7 @@ const AcquisitionRequest = sequelize.define('acquisitionRequest',{
     selectionMethod: {
         type: Sequelize.TEXT
     },
-    descriptionTitle: {
+    warranty: {
         type: Sequelize.TEXT
     }
 
