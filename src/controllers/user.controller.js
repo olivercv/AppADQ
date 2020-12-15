@@ -7,7 +7,7 @@ import { cfg } from '../config/config'
 import Position from "../models/Position"
 import Office from "../models/Office"
 import Role from "../models/Role";
-const nodemailer = require("nodemailer");
+// const nodemailer = require("nodemailer");
 export async function getUsers(req, res) {
   try {
     const users = await User.findAll({
@@ -334,7 +334,7 @@ async function sendEmail(email,token, res){
 
   //let testAccount = await nodemailer.createTestAccount();
 
-  var transporter = nodemailer.createTransport({
+  // var transporter = nodemailer.createTransport({
    /*  host: "smtp.ethereal.email",
     port: 587,
     secure: false, // true for 465, false for other ports
@@ -346,13 +346,13 @@ async function sendEmail(email,token, res){
     /* tls:{
       rejectUnauthorized: false
     } */
-    service: "Yahoo",
-    secure: true,
-    auth: {
-      user: "carlos05_ale@yahoo.es",
-      pass: "ykzsibrryadkyekd"  
-    },
-  });
+  //   service: "Yahoo",
+  //   secure: true,
+  //   auth: {
+  //     user: "carlos05_ale@yahoo.es",
+  //     pass: "ykzsibrryadkyekd"  
+  //   },
+  // });
 
    // send mail with defined transport object
    var mailOptions = {
